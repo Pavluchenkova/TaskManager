@@ -1,0 +1,15 @@
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\testDB.exe.config
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\testDB.exe
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\testDB.pdb
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\EntityFramework.dll
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\TasksManager.Infrastructure.dll
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\TasksManager.Model.dll
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\TasksManager.Infrastructure.pdb
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\TasksManager.Infrastructure.dll.config
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\TasksManager.Model.pdb
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\EntityFramework.xml
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\obj\Debug\testDB.csprojResolveAssemblyReference.cache
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\obj\Debug\testDB.exe
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\testDB\obj\Debug\testDB.pdb

@@ -1,0 +1,5 @@
+C:\Users\H188569\Documents\Visual Studio 2017\Projects\TasksManager\TasksManager.Model\bin\Debug\TasksManager.Model.dll
+C:\Users\H188569\Documents\Visual Studio 2017\Projects\TasksManager\TasksManager.Model\bin\Debug\TasksManager.Model.pdb
+C:\Users\H188569\Documents\Visual Studio 2017\Projects\TasksManager\TasksManager.Model\obj\Debug\TasksManager.Model.dll
+C:\Users\H188569\Documents\Visual Studio 2017\Projects\TasksManager\TasksManager.Model\obj\Debug\TasksManager.Model.pdb
+C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Model\obj\Debug\TasksManager.Model.csprojResolveAssemblyReference.cache
