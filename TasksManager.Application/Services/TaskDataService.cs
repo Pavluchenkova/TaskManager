@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using TasksManager.Application.Models;
+using TasksManager.Application.Services;
 using TasksManager.Infrastructure.Repository;
 using TasksManager.Model;
 using TasksManager.Model.Repositories;
 
 namespace TasksManager.Application
 {
-    public class TaskDataService : IDataServise<Task>
+    public class TaskDataService : IDataServise<TaskModel>
     {
         TaskRepository repository = new TaskRepository();
-        public void Add(Task entity)
+        Convertor convertor = new Convertor();
+        public void Add(TaskModel entity)
         {
-            repository.Add(entity);
+            var task = convertor.ConvertToTask(entity);
+            repository.Add(task);
         }
 
-        public void Delete(Task entity)
+        public void Delete(TaskModel entity)
         {
-            repository.Delete(entity);
+            var task = convertor.ConvertToTask(entity);
+            repository.Delete(task);
         }
 
-        public IEnumerable<Task> GetAll()
+        public IEnumerable<TaskModel> GetAll()
         {
-            return repository.GetAll();
+            var tasks = repository.GetAll();
+            return convertor.ConvertToTaskModel(tasks);
         }
 
-        public Task GetBy(Expression<Func<Task, bool>> predicate)
+        public void Update(TaskModel entity)
         {
-           return repository.GetBy(predicate);
-        }
-
-        public void Update(Task entity)
-        {
-            repository.Update(entity);
+            var task = convertor.ConvertToTask(entity);
+            repository.Update(task);
         }
     }
+
 }

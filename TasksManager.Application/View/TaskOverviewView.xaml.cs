@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TasksManager.Application.Models;
 using TasksManager.Model;
 
 namespace TasksManager.Application.View
@@ -20,8 +21,8 @@ namespace TasksManager.Application.View
     /// </summary>
     public partial class TaskOverviewView : Page
     {
-        private Task selectedTask;
-        private IEnumerable<Task> tasks;
+        private TaskModel selectedTask;
+        private IEnumerable<TaskModel> tasks;
         public TaskOverviewView()
         {
             InitializeComponent();
@@ -31,18 +32,18 @@ namespace TasksManager.Application.View
         private void LoadData()
         {
             TaskDataService taskDataService = new TaskDataService();
-            tasks= taskDataService.GetAll();
+            tasks = taskDataService.GetAll();
             TaskListView.ItemsSource = tasks;
         }
 
-        private void TaskListView_SelectionChanged( object sender, SelectionChangedEventArgs e)
+        private void TaskListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedTask = e.AddedItems[0] as Task;
-            if (e!=null)
+            selectedTask = e.AddedItems[0] as TaskModel;
+            if (e != null)
             {
-            this.DataContext = selectedTask;
+                this.DataContext = selectedTask;
             }
-            
+
         }
     }
 }

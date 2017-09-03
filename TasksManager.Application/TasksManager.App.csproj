@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Services\Convertor.cs" />
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="View\TaskOverviewView.xaml.cs">
       <DependentUpon>TaskOverviewView.xaml</DependentUpon>

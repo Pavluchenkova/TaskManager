@@ -10,7 +10,6 @@ namespace TasksManager.Model.Repositories
     public interface IDataServise<T>
     {
         IEnumerable<T> GetAll();
-        T GetBy(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
