@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\obj\Debug\
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\
 TasksManager.Application
 none
 false
 DEBUG;TRACE
-C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\App.xaml
-21116049860
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\App.xaml
+3463178191
 
-91736546270
-18-1915943335
-MainWindow.xaml;View\TaskOverviewView.xaml;
+10-1248450685
+20496852854
+MainWindow.xaml;View\TaskDetailView.xaml;View\TaskOverviewView.xaml;
 
 False
 

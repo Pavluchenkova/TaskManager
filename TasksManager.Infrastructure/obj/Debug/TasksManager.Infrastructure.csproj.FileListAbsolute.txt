@@ -22,3 +22,15 @@ C:\Users\Agnessa\Documents\TaskManager\TasksManager.Infrastructure\bin\Debug\Ent
 C:\Users\Agnessa\Documents\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\Agnessa\Documents\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.dll
 C:\Users\Agnessa\Documents\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.pdb
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.dll.config
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.dll
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.pdb
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Model.dll
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Model.pdb
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.dll
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.pdb

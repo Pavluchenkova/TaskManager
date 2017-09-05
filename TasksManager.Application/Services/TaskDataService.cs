@@ -38,6 +38,13 @@ namespace TasksManager.Application
             var task = convertor.ConvertToTask(entity);
             repository.Update(task);
         }
+
+        internal IEnumerable<TaskModel> GetAllInProgress()
+        {
+            var task = repository.GetAll();
+            var taskInProgress = task.Where(e => e.Status == Model.Entities.TaskStatus.InProgress).ToList();
+            return convertor.ConvertToTaskModel(taskInProgress);
+        }
     }
 
 }

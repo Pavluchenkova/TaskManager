@@ -25,7 +25,7 @@ namespace testDB
                     Status = TasksManager.Model.Entities.TaskStatus.Done,
                     Priority = TasksManager.Model.TaskPriority.High
                 };
-                var res = repo.GetBy(e => e.Category == TasksManager.Model.TaskCategory.Work);
+                var res = repo.GetBy(e => e.Status == TasksManager.Model.Entities.TaskStatus.InProgress);
             //repo.Add(t1);
             TaskContext tc = new TaskContext();            
             Console.WriteLine("Задач: {0}", res.Description);  

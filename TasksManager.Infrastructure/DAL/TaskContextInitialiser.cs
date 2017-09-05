@@ -41,7 +41,7 @@ namespace TasksManager.Infrastructure.DAL
                    Description = "Practice MVVM pattern",
                    Category = Model.TaskCategory.Study,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.Done,
+                   Status = Model.Entities.TaskStatus.InProgress,
                    Priority =Model.TaskPriority.High
                }
 

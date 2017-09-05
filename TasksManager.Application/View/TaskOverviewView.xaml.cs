@@ -19,10 +19,12 @@ namespace TasksManager.Application.View
     /// <summary>
     /// Interaction logic for TaskOverviewView.xaml
     /// </summary>
-    public partial class TaskOverviewView : Page
+    public partial class TaskOverviewView : Window
     {
         private TaskModel selectedTask;
         private IEnumerable<TaskModel> tasks;
+        TaskDataService taskDataService = new TaskDataService();
+
         public TaskOverviewView()
         {
             InitializeComponent();
@@ -31,9 +33,8 @@ namespace TasksManager.Application.View
 
         private void LoadData()
         {
-            TaskDataService taskDataService = new TaskDataService();
-            tasks = taskDataService.GetAll();
-            TaskListView.ItemsSource = tasks;
+            TaskListView.ItemsSource = taskDataService.GetAll();
+            TaskInProgressListView.ItemsSource = taskDataService.GetAllInProgress();
         }
 
         private void TaskListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,7 +44,13 @@ namespace TasksManager.Application.View
             {
                 this.DataContext = selectedTask;
             }
+        }
 
+        private void DetailTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            TaskDetailView taskDetailView = new TaskDetailView();
+            taskDetailView.SelectedTask = selectedTask;
+            taskDetailView.ShowDialog();
         }
     }
 }
