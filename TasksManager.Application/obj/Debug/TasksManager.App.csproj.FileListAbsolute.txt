@@ -80,3 +80,12 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\Material
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\App.baml
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.baml
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.g.cs
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\bin\Debug\MaterialDesignColors.dll
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.baml
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.g.cs
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Application\obj\Debug\App.baml

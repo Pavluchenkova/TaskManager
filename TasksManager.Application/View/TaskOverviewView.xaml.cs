@@ -21,36 +21,10 @@ namespace TasksManager.Application.View
     /// </summary>
     public partial class TaskOverviewView : Window
     {
-        private TaskModel selectedTask;
-        private IEnumerable<TaskModel> tasks;
-        TaskDataService taskDataService = new TaskDataService();
 
         public TaskOverviewView()
         {
             InitializeComponent();
-            LoadData();
-        }
-
-        private void LoadData()
-        {
-            TaskListView.ItemsSource = taskDataService.GetAll();
-            TaskInProgressListView.ItemsSource = taskDataService.GetAllInProgress();
-        }
-
-        private void TaskListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedTask = e.AddedItems[0] as TaskModel;
-            if (e != null)
-            {
-                this.DataContext = selectedTask;
-            }
-        }
-
-        private void DetailTaskButton_Click(object sender, RoutedEventArgs e)
-        {
-            TaskDetailView taskDetailView = new TaskDetailView();
-            taskDetailView.SelectedTask = selectedTask;
-            taskDetailView.ShowDialog();
         }
     }
 }

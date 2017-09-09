@@ -36,11 +36,11 @@
         <Label Grid.Row="5" Content="CreationDate"></Label>
 
 
-        <Label Grid.Row="0" Grid.Column = "1" Content="{Binding Title}"></Label>
-        <Label Grid.Row="1" Grid.Column = "1" Content="{Binding Status}"></Label>
-        <Label Grid.Row="2" Grid.Column = "1" Content="{Binding Priority}"></Label>
-        <Label Grid.Row="3" Grid.Column = "1" Content="{Binding Category}"></Label>
-        <Label Grid.Row="4" Grid.Column = "1" Content="{Binding Description}"></Label>
-        <Label Grid.Row="5" Grid.Column = "1" Content="{Binding CreationDate}"></Label>
+        <Label Grid.Row="0" Grid.Column = "1" Content="{Binding SelectedTask.Title}"></Label>
+        <Label Grid.Row="1" Grid.Column = "1" Content="{Binding SelectedTask.Status}"></Label>
+        <Label Grid.Row="2" Grid.Column = "1" Content="{Binding SelectedTask.Priority}"></Label>
+        <Label Grid.Row="3" Grid.Column = "1" Content="{Binding SelectedTask.Category}"></Label>
+        <Label Grid.Row="4" Grid.Column = "1" Content="{Binding SelectedTask.Description}"></Label>
+        <Label Grid.Row="5" Grid.Column = "1" Content="{Binding SelectedTask.CreationDate}"></Label>
     </Grid>
 </Window>
