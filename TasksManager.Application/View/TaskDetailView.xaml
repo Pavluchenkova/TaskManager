@@ -46,7 +46,7 @@
         <TextBox Grid.Row="4" Grid.Column = "1" Text="{Binding SelectedTask.Description, Mode=TwoWay}"></TextBox>
         <TextBox Grid.Row="5" Grid.Column = "1" Text="{Binding SelectedTask.CreationDate, Mode=TwoWay}"></TextBox>
         <StackPanel Grid.Row="6" Grid.Column="1">
-            <Button Command="{Binding SaveCommand}"
+            <Button Command="{Binding SaveTaskCommand}"
                     HorizontalAlignment="Right"
                     Margin="8"
                     ToolTip="Save"

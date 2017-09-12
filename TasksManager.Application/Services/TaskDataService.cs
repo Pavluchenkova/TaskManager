@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using TasksManager.Application.Models;
 using TasksManager.Application.Services;
 using TasksManager.Infrastructure.Repository;
@@ -23,7 +25,8 @@ namespace TasksManager.Application
 
         public void Delete(TaskModel entity)
         {
-            repository.Delete(e => e.TaskId == entity.TaskId);
+            var task = convertor.ConvertToTask(entity);
+            repository.Delete(task);
         }
 
         public IEnumerable<TaskModel> GetAll()
@@ -43,6 +46,20 @@ namespace TasksManager.Application
             var task = repository.GetAll();
             var taskInProgress = task.Where(e => e.Status == Model.Entities.TaskStatus.InProgress).ToList();
             return convertor.ConvertToTaskModel(taskInProgress);
+        }
+
+        internal void Add(ObservableCollection<TaskModel> taskModels)
+        {
+
+            var tasks = taskModels.Where(e => e.IsNew).ToList();
+            foreach (var item in tasks)
+            {
+                item.TaskId = Guid.NewGuid();
+                item.IsNew = false;
+                item.CreationDate = DateTime.Now;
+                var task = convertor.ConvertToTask(item);
+                repository.Add(task);
+            }
         }
     }
 

@@ -19,7 +19,7 @@ namespace TasksManager.Application.Services
         }
         public void CloseDialog()
         {
-            if(taskDetailView!=null)
+            if (taskDetailView != null)
             {
                 taskDetailView.Close();
             }

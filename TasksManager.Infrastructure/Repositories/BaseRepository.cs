@@ -17,33 +17,31 @@ namespace TasksManager.Infrastructure.Repository
             _dbContext = new C();
 
         }
-        public void Add(T entity)
-        {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
-        }
 
-        public void Delete(Expression<Func<T, bool>> predicate)
-        {
-            T entity = GetBy(predicate);
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
-        }
+        public C DbContext => _dbContext;
+
+        public abstract void Add(T entity);
+        //{
+        //    DbContext.Set<T>().Add(entity);
+        //    DbContext.SaveChanges();
+        //}
+
+        public abstract void Delete(T entity);
 
         public IEnumerable<T> GetAll()
         {
-            return _dbContext.Set<T>().ToList();
+            return DbContext.Set<T>().ToList();
         }
 
         public T GetBy(Expression<Func<T, bool>> predicate)
         {
-            return _dbContext.Set<T>().FirstOrDefault(predicate);
+            return DbContext.Set<T>().FirstOrDefault(predicate);
         }
 
         public void Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            DbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.SaveChanges();
         }
     }
 }

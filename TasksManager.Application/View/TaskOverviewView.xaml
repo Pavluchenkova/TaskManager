@@ -36,7 +36,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="26"></RowDefinition>
                 <RowDefinition/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" Margin="0" materialDesign:ShadowAssist.ShadowDepth="Depth1" Mode="PrimaryLight">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">To Do:</TextBlock>
@@ -56,6 +56,10 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Content="{Binding Title}" FontWeight="Bold"></Label>
                                 <Label Grid.Row="1" Content="{Binding Status}" FontWeight="Normal"></Label>
                                 <Label Grid.Row="2" Content="{Binding Priority}" FontWeight="Normal"></Label>
@@ -67,7 +71,10 @@
             <!--<Button Grid.Row="2" Grid.Column="0" Command="{Binding DetailCommand}" Margin="50 50 50 50">Detail</Button>-->
 
             <StackPanel Grid.Row="2" Height="200">
-                <Button VerticalAlignment="Center" Margin="5" Command="{Binding DetailCommand}" Content="detail" /> 
+                <Button VerticalAlignment="Center"
+                        Margin="5"
+                        Command="{Binding DetailCommand}"
+                        Content="detail" />
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                         Margin="5" 
                         HorizontalAlignment="Right" 
@@ -110,7 +117,46 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <materialDesign:Card Margin="0 4 4 0" Grid.Column="1" Grid.Row="2" Background="{DynamicResource PrimaryHueDarkBrush}"
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Title"></Label>
+                <Label Grid.Row="1" Content="Status"></Label>
+                <Label Grid.Row="2" Content=" Priority"></Label>
+                <Label Grid.Row="3" Content="Category"></Label>
+                <Label Grid.Row="4" Content="Description"></Label>
+                <Label Grid.Row="5" Content="CreationDate"></Label>
+
+                <TextBox Grid.Row="0" Grid.Column = "1" Text="{Binding NewTask.Title, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column = "1" Text="{Binding NewTask.Status, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column = "1" Text="{Binding NewTask.Priority, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column = "1" Text="{Binding NewTask.Category, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="4" Grid.Column = "1" Text="{Binding NewTask.Description, Mode=TwoWay}"></TextBox>
+                <TextBox Grid.Row="5" Grid.Column = "1" Text="{Binding NewTask.CreationDate, Mode=TwoWay}"></TextBox>
+                <Button Grid.Row="6" Grid.Column="1"
+                        Command="{Binding SaveNewTaskCommand}"
+                        HorizontalAlignment="Right"
+                        Margin="8"
+                        ToolTip="Save"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                    <materialDesign:PackIcon Kind="Check"/>
+                </Button>
+
+            </Grid>
+            <!--<materialDesign:Card Margin="0 4 4 0" Grid.Column="1" Grid.Row="2" Background="{DynamicResource PrimaryHueDarkBrush}"
                   Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                   Width="200"
                   Padding="8">
@@ -128,7 +174,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-            </materialDesign:Card>
+            </materialDesign:Card>-->
         </Grid>
     </DockPanel>
 </Window>

@@ -18,7 +18,7 @@ namespace TasksManager.Application.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private TaskModel selectedTask;
-        private DialogService dialogService= new DialogService();
+        private DialogService dialogService = new DialogService();
         private TaskDataService taskDataService;
 
         private void RaisePropertyChanged(string propertyName)
@@ -29,10 +29,12 @@ namespace TasksManager.Application.ViewModel
 
         private ObservableCollection<TaskModel> tasks;
         private ObservableCollection<TaskModel> tasksInProcess;
+        private TaskModel newTask;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
+        public ICommand SaveNewTaskCommand { get; set; }
         public ObservableCollection<TaskModel> Tasks
         {
             get
@@ -69,6 +71,20 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged("SelectedTask");
             }
         }
+
+        public TaskModel NewTask
+        {
+            get
+            {
+                return selectedTask;
+            }
+            set
+            {
+                selectedTask = value;
+                RaisePropertyChanged("NewTask");
+            }
+        }
+
         public TaskOverviewViewModel()
         {
             taskDataService = new TaskDataService();
@@ -80,6 +96,7 @@ namespace TasksManager.Application.ViewModel
         private void OnUpdateListMessageReceived(UpdateListMessage obj)
         {
             LoadData();
+            dialogService.CloseDialog();
         }
 
         private void LoadCommands()
@@ -87,6 +104,17 @@ namespace TasksManager.Application.ViewModel
             DetailCommand = new CustomCommand(ShowTaskDetail, CanShowTaskDetail);
             AddTaskCommand = new CustomCommand(AddTask, CanAddTask);
             DeleteTaskCommand = new CustomCommand(DeleteTask, CanDeleteTask);
+            SaveNewTaskCommand = new CustomCommand(SaveTaskCommand, CanSaveTaskCommand);
+        }
+        private void SaveTaskCommand(object obj)
+        {
+            Tasks.Add(NewTask);
+            taskDataService.Add(Tasks);
+        }
+
+        private bool CanSaveTaskCommand(object obj)
+        {
+            return true;
         }
 
         private bool CanDeleteTask(object obj)
@@ -106,7 +134,9 @@ namespace TasksManager.Application.ViewModel
 
         private void AddTask(object obj)
         {
-            throw new NotImplementedException();//TODO
+            NewTask = new TaskModel();
+            NewTask.IsNew = true;
+            //Tasks.Add(NewTask);
         }
 
         private bool CanAddTask(object obj)

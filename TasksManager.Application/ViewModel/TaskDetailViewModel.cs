@@ -37,7 +37,7 @@ namespace TasksManager.Application.ViewModel
         private void SaveTask(object obj)
         {
             taskDataService.Update(selectedTask);
-            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());            
         }
         private bool CanCaveTask(object obj)
         {

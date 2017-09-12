@@ -13,7 +13,14 @@ namespace TasksManager.Application.Models
         private Guid taskId;
         private string title;
         private string description;
+        private bool _isNew;
 
+        public TaskModel()
+        {
+            TaskId = Guid.NewGuid();
+            IsNew = false;
+            
+        }
         public Guid TaskId {
             get
             {
@@ -53,6 +60,16 @@ namespace TasksManager.Application.Models
         public DateTime CreationDate { get; set; }
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
+        public bool IsNew {
+
+            get => _isNew;
+
+            set
+            {
+                _isNew = value;
+                RaisePropertyChanged(nameof(IsNew));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)

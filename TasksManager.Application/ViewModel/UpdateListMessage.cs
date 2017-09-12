@@ -1,6 +1,6 @@
 ﻿namespace TasksManager.Application.ViewModel
 {
-    internal class UpdateListMessage
+    public class UpdateListMessage
     {
     }
 }

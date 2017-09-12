@@ -15,6 +15,19 @@ namespace TasksManager.Infrastructure.Repository
         public TaskRepository() : base()
         {
         }
+
+        public override void Delete(Task entity)
+        {
+            var task = GetById(entity.TaskId);
+            DbContext.Set<Task>().Remove(task);
+            DbContext.SaveChanges();
+        }
+        public override void Add(Task entity)
+        {
+            DbContext.Set<Task>().Add(entity);
+            DbContext.SaveChanges();
+        }
+
         public Task GetById(Guid id)
         {
             return GetBy(e => e.TaskId == id);
