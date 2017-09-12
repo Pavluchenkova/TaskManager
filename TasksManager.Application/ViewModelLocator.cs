@@ -9,18 +9,18 @@ namespace TasksManager.Application
 {
     public class ViewModelLocator
     {
-        private TaskOverviewViewModel taskOverviewViewModel =
+        private static TaskOverviewViewModel taskOverviewViewModel =
             new TaskOverviewViewModel();
-        private TaskDetailViewModel taskDetailViewModel =
+        private static TaskDetailViewModel taskDetailViewModel =
             new TaskDetailViewModel();
-        public TaskOverviewViewModel TaskOverviewViewModel
+        public static TaskOverviewViewModel TaskOverviewViewModel
         {
             get
             {
                 return taskOverviewViewModel;
             }
         }
-        public TaskDetailViewModel TaskDetailViewModel
+        public static TaskDetailViewModel TaskDetailViewModel
         {
             get
             {

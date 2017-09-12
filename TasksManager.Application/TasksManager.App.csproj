@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,11 +71,14 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Services\Convertor.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="Utility\CustomCommand.cs" />
+    <Compile Include="Utility\Messanger.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\TaskDetailViewModel.cs" />
     <Compile Include="ViewModel\TaskOverviewViewModel.cs" />
+    <Compile Include="ViewModel\UpdateListMessage.cs" />
     <Compile Include="View\TaskDetailView.xaml.cs">
       <DependentUpon>TaskDetailView.xaml</DependentUpon>
     </Compile>

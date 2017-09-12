@@ -23,8 +23,7 @@ namespace TasksManager.Application
 
         public void Delete(TaskModel entity)
         {
-            var task = convertor.ConvertToTask(entity);
-            repository.Delete(task);
+            repository.Delete(e => e.TaskId == entity.TaskId);
         }
 
         public IEnumerable<TaskModel> GetAll()

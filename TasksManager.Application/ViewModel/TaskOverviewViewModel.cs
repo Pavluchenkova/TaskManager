@@ -9,14 +9,17 @@ using TasksManager.Application.Extensions;
 using TasksManager.Application.Models;
 using System.Windows.Input;
 using TasksManager.Application.Utility;
+using TasksManager.Application.View;
+using TasksManager.Application.Services;
 
 namespace TasksManager.Application.ViewModel
 {
     public class TaskOverviewViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        TaskModel selectedTask;
-        ICommand DetailCommand;
+        private TaskModel selectedTask;
+        private DialogService dialogService= new DialogService();
+        private TaskDataService taskDataService;
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -27,6 +30,9 @@ namespace TasksManager.Application.ViewModel
         private ObservableCollection<TaskModel> tasks;
         private ObservableCollection<TaskModel> tasksInProcess;
 
+        public ICommand DetailCommand { get; set; }
+        public ICommand AddTaskCommand { get; set; }
+        public ICommand DeleteTaskCommand { get; set; }
         public ObservableCollection<TaskModel> Tasks
         {
             get
@@ -65,29 +71,66 @@ namespace TasksManager.Application.ViewModel
         }
         public TaskOverviewViewModel()
         {
+            taskDataService = new TaskDataService();
             LoadData();
-            LoadCommand();
+            LoadCommands();
+            Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
         }
 
-        private void LoadCommand()
+        private void OnUpdateListMessageReceived(UpdateListMessage obj)
+        {
+            LoadData();
+        }
+
+        private void LoadCommands()
         {
             DetailCommand = new CustomCommand(ShowTaskDetail, CanShowTaskDetail);
+            AddTaskCommand = new CustomCommand(AddTask, CanAddTask);
+            DeleteTaskCommand = new CustomCommand(DeleteTask, CanDeleteTask);
         }
+
+        private bool CanDeleteTask(object obj)
+        {
+            if (SelectedTask != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void DeleteTask(object obj)
+        {
+            taskDataService.Delete(selectedTask);
+            LoadData();
+        }
+
+        private void AddTask(object obj)
+        {
+            throw new NotImplementedException();//TODO
+        }
+
+        private bool CanAddTask(object obj)
+        {
+           return true;                                             //TODO
+        }
+
         private void ShowTaskDetail(object obj)
         {
-            //TODO
+            Messenger.Default.Send<TaskModel>(selectedTask);
+            dialogService.ShowDialog();
         }
 
         private bool CanShowTaskDetail(object obj)
         {
             if (SelectedTask != null)
+            {
                 return true;
+            }
             return false;
         }
 
         private void LoadData()
         {
-            TaskDataService taskDataService = new TaskDataService();
             Tasks = taskDataService.GetAll().ToObservableCollection();
             TasksInProcess = taskDataService.GetAllInProgress().ToObservableCollection();
         }

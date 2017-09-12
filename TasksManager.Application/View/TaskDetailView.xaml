@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:TasksManager.Application.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -11,8 +13,9 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
-        Title="TaskDetail" Height="300" Width="300">
+        mc:Ignorable="d"   
+        Title="TaskDetail" Height="300" Width="300"
+    DataContext="{Binding Source={StaticResource mainViewModelLocator}, Path=TaskDetailViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,6 +28,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -35,12 +39,22 @@
         <Label Grid.Row="4" Content="Description"></Label>
         <Label Grid.Row="5" Content="CreationDate"></Label>
 
+        <TextBox Grid.Row="0" Grid.Column = "1" Text="{Binding SelectedTask.Title, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column = "1" Text="{Binding SelectedTask.Status, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column = "1" Text="{Binding SelectedTask.Priority, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column = "1" Text="{Binding SelectedTask.Category, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column = "1" Text="{Binding SelectedTask.Description, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column = "1" Text="{Binding SelectedTask.CreationDate, Mode=TwoWay}"></TextBox>
+        <StackPanel Grid.Row="6" Grid.Column="1">
+            <Button Command="{Binding SaveCommand}"
+                    HorizontalAlignment="Right"
+                    Margin="8"
+                    ToolTip="Save"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                    <materialDesign:PackIcon Kind="Check"/>
+            </Button>
+        </StackPanel>
 
-        <Label Grid.Row="0" Grid.Column = "1" Content="{Binding SelectedTask.Title}"></Label>
-        <Label Grid.Row="1" Grid.Column = "1" Content="{Binding SelectedTask.Status}"></Label>
-        <Label Grid.Row="2" Grid.Column = "1" Content="{Binding SelectedTask.Priority}"></Label>
-        <Label Grid.Row="3" Grid.Column = "1" Content="{Binding SelectedTask.Category}"></Label>
-        <Label Grid.Row="4" Grid.Column = "1" Content="{Binding SelectedTask.Description}"></Label>
-        <Label Grid.Row="5" Grid.Column = "1" Content="{Binding SelectedTask.CreationDate}"></Label>
+
     </Grid>
 </Window>

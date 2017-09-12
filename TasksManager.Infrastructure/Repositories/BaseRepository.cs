@@ -23,8 +23,9 @@ namespace TasksManager.Infrastructure.Repository
             _dbContext.SaveChanges();
         }
 
-        public void Delete(T entity)
+        public void Delete(Expression<Func<T, bool>> predicate)
         {
+            T entity = GetBy(predicate);
             _dbContext.Set<T>().Remove(entity);
             _dbContext.SaveChanges();
         }

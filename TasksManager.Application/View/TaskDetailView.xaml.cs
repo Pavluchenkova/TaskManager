@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TasksManager.Application.ViewModel;
 
 namespace TasksManager.Application.View
 {
@@ -19,17 +20,10 @@ namespace TasksManager.Application.View
     /// </summary>
     public partial class TaskDetailView : Window
     {
-        public object SelectedTask { get; set; }
-
-                public TaskDetailView()
+        public TaskDetailView()
         {
             InitializeComponent();
-            this.Loaded += TaskDetailView_Loaded;
-        }
-     
-        private void TaskDetailView_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = SelectedTask;
+           // DataContext = new TaskDetailViewModel();
         }
     }
 }

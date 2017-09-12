@@ -14,7 +14,10 @@ namespace TasksManager.Infrastructure.Repository
     {
         public TaskRepository() : base()
         {
-
+        }
+        public Task GetById(Guid id)
+        {
+            return GetBy(e => e.TaskId == id);
         }
     }
 }
