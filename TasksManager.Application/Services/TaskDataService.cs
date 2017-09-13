@@ -55,7 +55,7 @@ namespace TasksManager.Application
             foreach (var item in tasks)
             {
                 item.TaskId = Guid.NewGuid();
-                item.IsNew = false;
+                //item.IsNew = false;
                 item.CreationDate = DateTime.Now;
                 var task = convertor.ConvertToTask(item);
                 repository.Add(task);

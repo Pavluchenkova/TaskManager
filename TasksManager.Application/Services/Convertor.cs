@@ -34,7 +34,7 @@ namespace TasksManager.Application.Services
                 Priority = e.Priority,
                 Category = e.Category,
                 CreationDate = e.CreationDate,
-                Description = e.Description                
+                Description = e.Description,
             }).ToList();
             return taskModels;
         }
