@@ -1,13 +1,13 @@
 ﻿namespace TasksManager.Model
 {
-    public enum TaskCategory
+    public enum TaskCategory:int
     {
-        DefaultCategory,
-        Personal,
-        Work,
-        Study,
-        Finance,
-        Idea,
-        Sport        
+        DefaultCategory = 0,
+        Personal = 1,
+        Work = 2,
+        Study = 3,
+        Finance = 4,
+        Idea = 5,
+        Sport = 6
     }
 }

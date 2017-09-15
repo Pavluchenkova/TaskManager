@@ -11,6 +11,8 @@ using System.Windows.Input;
 using TasksManager.Application.Utility;
 using TasksManager.Application.View;
 using TasksManager.Application.Services;
+using TasksManager.Model.Entities;
+using System.Windows;
 
 namespace TasksManager.Application.ViewModel
 {
@@ -72,6 +74,28 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
+        public IEnumerable<TaskStatus> TaskStatuses
+        {
+            get
+            {
+                return Enum.GetValues(typeof(TaskStatus)).Cast<TaskStatus>();
+            }
+        }
+        public IEnumerable<TaskPriority> TaskPriorities
+        {
+            get
+            {
+                return Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>();
+            }
+        }
+        public IEnumerable<TaskCategory> TaskCategories
+        {
+            get
+            {
+                return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
+            }
+        }
+
         public TaskModel NewTask
         {
             get
@@ -108,8 +132,10 @@ namespace TasksManager.Application.ViewModel
         }
         private void SaveTaskCommand(object obj)
         {
-            Tasks.Add(NewTask);
+            //Tasks.Add(NewTask);
+            
             taskDataService.Add(Tasks);
+            LoadData();
         }
 
         private bool CanSaveTaskCommand(object obj)
@@ -119,18 +145,20 @@ namespace TasksManager.Application.ViewModel
 
         private bool CanDeleteTask(object obj)
         {
-            if (SelectedTask != null)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         private void DeleteTask(object obj)
         {
-            selectedTask.IsNew = true;
-            //taskDataService.Delete(selectedTask);
-            Tasks.Remove(selectedTask);
+            TaskModel task = obj as TaskModel;
+
+            if (task != null)
+            {
+                taskDataService.Delete(task);
+            }
+            //Tasks.Remove(selectedTask);
+            //TasksInProcess.Remove(selectedTask);
+            LoadData();
         }
 
         private void AddTask(object obj)
@@ -147,17 +175,27 @@ namespace TasksManager.Application.ViewModel
 
         private void ShowTaskDetail(object obj)
         {
+            // way to redact in the same window
+            //TaskModel task = obj as TaskModel;
+
+            //if (task != null)
+            //{
+            //    //Tasks.FirstOrDefault(e => e.TaskId == task.TaskId).IsNew = true;
+
+            //    int ind = Tasks.IndexOf(task);
+            //    Tasks.Remove(task);
+            //    task.IsNew = true;
+            //    Tasks.Insert(ind, task);
+
+
+            //}
             Messenger.Default.Send<TaskModel>(selectedTask);
             dialogService.ShowDialog();
         }
 
         private bool CanShowTaskDetail(object obj)
         {
-            if (SelectedTask != null)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         private void LoadData()

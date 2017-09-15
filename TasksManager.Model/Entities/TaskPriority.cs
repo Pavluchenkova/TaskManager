@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TasksManager.Model
 {
-    public enum TaskPriority
+    public enum TaskPriority : int
     {
-        High,
-        Medium,
-        Low
+        High = 0,
+        Medium = 1,
+        Low = 2
     }
 }

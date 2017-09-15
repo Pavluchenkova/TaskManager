@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TasksManager.Model.Entities
 {
-    public enum TaskStatus
+    public enum TaskStatus : int
     {
-        ToDo,
-        InProgress,
-        Done
+        ToDo = 0,
+        InProgress = 1,
+        Done = 2
     }
 }
