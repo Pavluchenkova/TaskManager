@@ -128,20 +128,21 @@ namespace TasksManager.Application.ViewModel
 
         private void DeleteTask(object obj)
         {
-            taskDataService.Delete(selectedTask);
-            LoadData();
+            selectedTask.IsNew = true;
+            //taskDataService.Delete(selectedTask);
+            Tasks.Remove(selectedTask);
         }
 
         private void AddTask(object obj)
         {
             NewTask = new TaskModel();
             NewTask.IsNew = true;
-            //Tasks.Add(NewTask);
+            Tasks.Add(NewTask);
         }
 
         private bool CanAddTask(object obj)
         {
-           return true;                                             //TODO
+            return true;                                        //TODO
         }
 
         private void ShowTaskDetail(object obj)
