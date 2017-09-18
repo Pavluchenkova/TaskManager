@@ -15,7 +15,6 @@ namespace TasksManager.Infrastructure.Repository
         public TaskRepository() : base()
         {
         }
-
         public override void Delete(Task entity)
         {
             var task = GetById(entity.TaskId);
@@ -32,5 +31,11 @@ namespace TasksManager.Infrastructure.Repository
         {
             return GetBy(e => e.TaskId == id);
         }
+        public override void Update(Task task)
+        {
+            DbContext.Entry(task).State = EntityState.Modified;
+            DbContext.SaveChanges();
+        }
+
     }
 }

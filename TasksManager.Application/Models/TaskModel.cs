@@ -14,11 +14,13 @@ namespace TasksManager.Application.Models
         private string title;
         private string description;
         private bool _isNew;
+        private bool _isModify;
 
         public TaskModel()
         {
             TaskId = Guid.NewGuid();
             IsNew = false;
+            IsModify = false;
             
         }
         public Guid TaskId {
@@ -70,6 +72,18 @@ namespace TasksManager.Application.Models
                 RaisePropertyChanged(nameof(IsNew));
             }
         }
+        public bool IsModify
+        {
+
+            get => _isModify;
+
+            set
+            {
+                _isModify = value;
+                RaisePropertyChanged(nameof(IsNew));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)

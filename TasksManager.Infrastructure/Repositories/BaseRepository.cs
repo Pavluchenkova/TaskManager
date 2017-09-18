@@ -38,10 +38,10 @@ namespace TasksManager.Infrastructure.Repository
             return DbContext.Set<T>().FirstOrDefault(predicate);
         }
 
-        public void Update(T entity)
-        {
-            DbContext.Entry(entity).State = EntityState.Modified;
-            DbContext.SaveChanges();
-        }
+        public abstract void Update(T entity);
+        //{
+        //    DbContext.Entry(entity).State = EntityState.Modified;
+        //    DbContext.SaveChanges();
+        //}
     }
 }

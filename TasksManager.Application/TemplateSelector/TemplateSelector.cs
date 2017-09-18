@@ -13,12 +13,17 @@ namespace TasksManager.Application.TemplateSelector
     {
         public DataTemplate TaskDataTemplate { get; set; }
         public DataTemplate EditTaskDataTemplate { get; set; }
+        public DataTemplate CreateTaskDataTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             TaskModel task = (TaskModel)item;
 
             if (task.IsNew == true)
+            {
+                return CreateTaskDataTemplate;
+            }
+            if (task.IsModify == true)
             {
                 return EditTaskDataTemplate;
             }

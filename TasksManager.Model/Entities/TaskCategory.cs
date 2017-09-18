@@ -2,12 +2,11 @@
 {
     public enum TaskCategory:int
     {
-        DefaultCategory = 0,
-        Personal = 1,
-        Work = 2,
-        Study = 3,
-        Finance = 4,
-        Idea = 5,
-        Sport = 6
+        Personal = 0,
+        Work = 1,
+        Study = 2,
+        Finance = 3,
+        Idea = 4,
+        Sport = 5
     }
 }

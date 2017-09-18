@@ -26,7 +26,7 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="true">
                     <Setter Property="Visibility" Value="visible"/>
                 </DataTrigger>
-
+                
                 <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=DataContext.IsNew}" Value="true">
                     <Setter Property="" Value="visible"/>
                 </DataTrigger-->
@@ -34,7 +34,7 @@
         </Style>
 
         <DataTemplate x:Key="TaskDataTemplate">
-            <Border BorderThickness="1">
+            <Border BorderThickness="0">
                 <DockPanel HorizontalAlignment="Stretch">
                     <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -42,10 +42,10 @@
                                 DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}">
                             <materialDesign:PackIcon Kind="Check"  Height="24" Width="24" />
                         </Button>
-                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Pensil" Command="{Binding DetailCommand}" 
+                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Pensil" Command="{Binding EditTaskCommand}" 
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}" 
                                 DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" >
-                            <materialDesign:PackIcon Kind="Pencil"  Height="24" Width="24" />
+                            <materialDesign:PackIcon Kind="Pencil" ToolTip="Edit" Height="24" Width="24" />
                         </Button>
                         <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Delete"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
@@ -57,7 +57,7 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="EditTaskDataTemplate">
+        <DataTemplate x:Key="CreateTaskDataTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -94,9 +94,55 @@
                 <Button Grid.Row="5" Grid.Column="2"
                         Command="{Binding SaveNewTaskCommand}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
                         HorizontalAlignment="Right"
                         Margin="5"
-                        ToolTip="Save"
+                        ToolTip="Save new"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
+                    <materialDesign:PackIcon Kind="Check"/>
+                </Button>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="EditTaskDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>                
+
+                <Label Grid.Row="1" VerticalContentAlignment="Bottom"  Content="Status" Grid.ColumnSpan="2"></Label>
+                <Label Grid.Row="2" VerticalContentAlignment="Bottom"  Content="Priority" Grid.ColumnSpan="2"></Label>
+                <Label Grid.Row="3" VerticalContentAlignment="Bottom"  Content="Category" Grid.ColumnSpan="2"></Label>
+                <Label Grid.Row="4" VerticalContentAlignment="Bottom"  Content="Notes" Grid.ColumnSpan="2"></Label>
+
+                <TextBox  Grid.Row="0" Grid.ColumnSpan ="3" Text="{Binding NewTask.Title, Mode=TwoWay}" FontSize="16" FontWeight="Bold" TextAlignment="Left"                          
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
+                <ComboBox Grid.Row="1" Grid.Column = "2" ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding NewTask.Status}"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                          materialDesign:HintAssist.Hint="Select status" Height="28" Margin="0,1"/>
+                <ComboBox Grid.Row="2" Grid.Column = "2" ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding NewTask.Priority}"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                          materialDesign:HintAssist.Hint="Select priority" Height="28" Margin="0,1"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column = "2" ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding NewTask.Category}"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                          materialDesign:HintAssist.Hint="Select category" Height="28" Margin="0,1"></ComboBox>
+                <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding NewTask.Description, Mode=TwoWay}"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
+                <Button Grid.Row="5" Grid.Column="2"
+                        Command="{Binding SaveTaskCommand}"
+                        DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
+                        HorizontalAlignment="Right"
+                        Margin="5"
+                        ToolTip="Save Changes"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
                     <materialDesign:PackIcon Kind="Check"/>
                 </Button>
@@ -127,7 +173,7 @@
                 <RowDefinition Height="155"/>
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" Margin="0" materialDesign:ShadowAssist.ShadowDepth="Depth1" Mode="PrimaryLight" Height="19">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">To Do:</TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">All tasks:</TextBlock>
             </materialDesign:ColorZone>
             <ListView Grid.Column="0" 
                       Grid.Row ="1"
@@ -139,6 +185,7 @@
                 <ListView.ItemTemplateSelector>
                     <local:TemplateSelector
                           EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
+                          CreateTaskDataTemplate ="{StaticResource CreateTaskDataTemplate}"
                           TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
                 </ListView.ItemTemplateSelector>
             </ListView>

@@ -19,6 +19,7 @@ namespace TasksManager.Application.ViewModel
     public class TaskOverviewViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private TaskModel newTask;
         private TaskModel selectedTask;
         private DialogService dialogService = new DialogService();
         private TaskDataService taskDataService;
@@ -31,12 +32,13 @@ namespace TasksManager.Application.ViewModel
 
         private ObservableCollection<TaskModel> tasks;
         private ObservableCollection<TaskModel> tasksInProcess;
-        private TaskModel newTask;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
         public ICommand SaveNewTaskCommand { get; set; }
+        public ICommand EditTaskCommand { get; set; }
+        public CustomCommand SaveTaskCommand { get; set; }
         public ObservableCollection<TaskModel> Tasks
         {
             get
@@ -100,11 +102,11 @@ namespace TasksManager.Application.ViewModel
         {
             get
             {
-                return selectedTask;
+                return newTask;
             }
             set
             {
-                selectedTask = value;
+                newTask = value;
                 RaisePropertyChanged("NewTask");
             }
         }
@@ -128,21 +130,64 @@ namespace TasksManager.Application.ViewModel
             DetailCommand = new CustomCommand(ShowTaskDetail, CanShowTaskDetail);
             AddTaskCommand = new CustomCommand(AddTask, CanAddTask);
             DeleteTaskCommand = new CustomCommand(DeleteTask, CanDeleteTask);
-            SaveNewTaskCommand = new CustomCommand(SaveTaskCommand, CanSaveTaskCommand);
-        }
-        private void SaveTaskCommand(object obj)
-        {
-            //Tasks.Add(NewTask);
-            
-            taskDataService.Add(Tasks);
-            LoadData();
+            SaveNewTaskCommand = new CustomCommand(SaveNewTask, CanSaveNewTask);
+            EditTaskCommand = new CustomCommand(EditTask, CanEditTask);
+            SaveTaskCommand = new CustomCommand(SaveTask, CanSaveTask);
         }
 
-        private bool CanSaveTaskCommand(object obj)
+        private bool CanEditTask(object obj)
         {
             return true;
         }
 
+        private void EditTask(object obj)
+        {
+           // LoadData();
+            //way to redact in the same window
+            TaskModel task = obj as TaskModel;            
+
+            if (task != null)
+            {                
+                int ind = Tasks.IndexOf(task);
+
+                LoadData();
+
+                NewTask = new TaskModel();
+
+                NewTask.TaskId = task.TaskId;
+                NewTask.Title = task.Title;
+                NewTask.Status = task.Status;
+                NewTask.Priority = task.Priority;
+                NewTask.Category = task.Category;
+                NewTask.CreationDate = task.CreationDate;
+                NewTask.Description = task.Description;
+                NewTask.IsNew = false;
+                NewTask.IsModify = true;
+                
+                Tasks.RemoveAt(ind);
+
+                Tasks.Insert(ind, NewTask);
+            }
+        }
+        private bool CanSaveNewTask(object obj)
+        {
+            return true;
+        }
+        private void SaveNewTask(object obj)
+        {
+            taskDataService.Add(Tasks);
+            LoadData();
+        }
+        private bool CanSaveTask(object obj)
+        {
+            return true;
+        }
+        private void SaveTask(object obj)
+        {
+            TaskModel task = obj as TaskModel;
+            taskDataService.Update(task);
+            LoadData();
+        }
         private bool CanDeleteTask(object obj)
         {
             return true;
@@ -175,21 +220,7 @@ namespace TasksManager.Application.ViewModel
 
         private void ShowTaskDetail(object obj)
         {
-            // way to redact in the same window
-            //TaskModel task = obj as TaskModel;
-
-            //if (task != null)
-            //{
-            //    //Tasks.FirstOrDefault(e => e.TaskId == task.TaskId).IsNew = true;
-
-            //    int ind = Tasks.IndexOf(task);
-            //    Tasks.Remove(task);
-            //    task.IsNew = true;
-            //    Tasks.Insert(ind, task);
-
-
-            //}
-            Messenger.Default.Send<TaskModel>(selectedTask);
+            Messenger.Default.Send<TaskModel>(newTask);
             dialogService.ShowDialog();
         }
 
