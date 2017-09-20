@@ -11,3 +11,4 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\bin\Debug\TasksManager.M
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\bin\Debug\TasksManager.Model.pdb
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.pdb
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.csprojResolveAssemblyReference.cache

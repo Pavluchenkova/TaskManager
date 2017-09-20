@@ -21,78 +21,35 @@ namespace TasksManager.Application.Models
             TaskId = Guid.NewGuid();
             IsNew = false;
             IsModify = false;
-            
+
         }
-        public Guid TaskId {
-            get
-            {
-                return taskId;
-            }
-            set
-            {
-                taskId = value;
-                RaisePropertyChanged("TaskId");
-            }
-        }
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-                RaisePropertyChanged("Title");
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-                RaisePropertyChanged("Description");
-            }
-        }
+        public Guid TaskId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         public TaskCategory Category { get; set; }
         public DateTime CreationDate { get; set; }
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
-        public bool IsNew {
-
-            get => _isNew;
-
-            set
-            {
-                _isNew = value;
-                RaisePropertyChanged(nameof(IsNew));
-            }
-        }
+        public bool IsNew { get; set; }
         public bool IsModify
         {
 
-            get => _isModify;
+            get
+            {
+                return _isModify;
+            }
 
             set
             {
                 _isModify = value;
-                RaisePropertyChanged(nameof(IsNew));
+                RaisePropertyChanged("IsModify");
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-        public void RaisePropertyChanged(string propertyName)
+        private void RaisePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

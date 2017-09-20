@@ -13,9 +13,18 @@ using TasksManager.Application.View;
 using TasksManager.Application.Services;
 using TasksManager.Model.Entities;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TasksManager.Application.ViewModel
 {
+    public class MyTasks:ObservableCollection<TaskModel>
+    {
+        public void Update()
+        {
+            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
+        }
+}
     public class TaskOverviewViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -142,32 +151,18 @@ namespace TasksManager.Application.ViewModel
 
         private void EditTask(object obj)
         {
-           // LoadData();
-            //way to redact in the same window
-            TaskModel task = obj as TaskModel;            
+         
+            SelectedTask = obj as TaskModel; ;
 
-            if (task != null)
-            {                
-                int ind = Tasks.IndexOf(task);
+            foreach (var task in Tasks)
+            {
+                if(task.IsModify == true)
+                {
+                    task.IsModify = false;
+                }
 
-                LoadData();
-
-                NewTask = new TaskModel();
-
-                NewTask.TaskId = task.TaskId;
-                NewTask.Title = task.Title;
-                NewTask.Status = task.Status;
-                NewTask.Priority = task.Priority;
-                NewTask.Category = task.Category;
-                NewTask.CreationDate = task.CreationDate;
-                NewTask.Description = task.Description;
-                NewTask.IsNew = false;
-                NewTask.IsModify = true;
-                
-                Tasks.RemoveAt(ind);
-
-                Tasks.Insert(ind, NewTask);
             }
+            SelectedTask.IsModify = true;
         }
         private bool CanSaveNewTask(object obj)
         {
@@ -195,19 +190,28 @@ namespace TasksManager.Application.ViewModel
 
         private void DeleteTask(object obj)
         {
-            TaskModel task = obj as TaskModel;
 
+            //SelectedTask = obj as TaskModel;
+
+            //if (SelectedTask != null)
+            //{
+            //    taskDataService.Delete(SelectedTask);
+            //}
+            //Tasks.Remove(SelectedTask);
+
+            TaskModel task = obj as TaskModel;
             if (task != null)
             {
                 taskDataService.Delete(task);
             }
-            //Tasks.Remove(selectedTask);
-            //TasksInProcess.Remove(selectedTask);
-            LoadData();
+            Tasks.Remove(task);
+            TasksInProcess.Remove(task);
+
         }
 
         private void AddTask(object obj)
         {
+            var listView = obj as ListView;
             NewTask = new TaskModel();
             NewTask.IsNew = true;
             Tasks.Add(NewTask);
@@ -233,6 +237,6 @@ namespace TasksManager.Application.ViewModel
         {
             Tasks = taskDataService.GetAll().ToObservableCollection();
             TasksInProcess = taskDataService.GetAllInProgress().ToObservableCollection();
-        }
+        }    
     }
 }

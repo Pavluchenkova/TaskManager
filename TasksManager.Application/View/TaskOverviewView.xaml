@@ -26,8 +26,8 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="true">
                     <Setter Property="Visibility" Value="visible"/>
                 </DataTrigger>
-                
-                <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=DataContext.IsNew}" Value="true">
+
+                <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=DataContext.IsModify}" Value="true">
                     <Setter Property="" Value="visible"/>
                 </DataTrigger-->
             </Style.Triggers>
@@ -94,7 +94,7 @@
                 <Button Grid.Row="5" Grid.Column="2"
                         Command="{Binding SaveNewTaskCommand}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                         HorizontalAlignment="Right"
                         Margin="5"
                         ToolTip="Save new"
@@ -116,25 +116,25 @@
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
-                </Grid.RowDefinitions>                
+                </Grid.RowDefinitions>
 
                 <Label Grid.Row="1" VerticalContentAlignment="Bottom"  Content="Status" Grid.ColumnSpan="2"></Label>
                 <Label Grid.Row="2" VerticalContentAlignment="Bottom"  Content="Priority" Grid.ColumnSpan="2"></Label>
                 <Label Grid.Row="3" VerticalContentAlignment="Bottom"  Content="Category" Grid.ColumnSpan="2"></Label>
                 <Label Grid.Row="4" VerticalContentAlignment="Bottom"  Content="Notes" Grid.ColumnSpan="2"></Label>
 
-                <TextBox  Grid.Row="0" Grid.ColumnSpan ="3" Text="{Binding NewTask.Title, Mode=TwoWay}" FontSize="16" FontWeight="Bold" TextAlignment="Left"                          
+                <TextBox  Grid.Row="0" Grid.ColumnSpan ="3" Text="{Binding SelectedTask.Title, Mode=TwoWay}" FontSize="16" FontWeight="Bold" TextAlignment="Left"                          
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
-                <ComboBox Grid.Row="1" Grid.Column = "2" ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding NewTask.Status}"
+                <ComboBox Grid.Row="1" Grid.Column = "2" ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding SelectedTask.Status}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select status" Height="28" Margin="0,1"/>
-                <ComboBox Grid.Row="2" Grid.Column = "2" ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding NewTask.Priority}"
+                <ComboBox Grid.Row="2" Grid.Column = "2" ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding SelectedTask.Priority}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select priority" Height="28" Margin="0,1"></ComboBox>
-                <ComboBox Grid.Row="3" Grid.Column = "2" ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding NewTask.Category}"
+                <ComboBox Grid.Row="3" Grid.Column = "2" ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding SelectedTask.Category}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select category" Height="28" Margin="0,1"></ComboBox>
-                <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding NewTask.Description, Mode=TwoWay}"
+                <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding SelectedTask.Description, Mode=TwoWay}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
                 <Button Grid.Row="5" Grid.Column="2"
                         Command="{Binding SaveTaskCommand}"
@@ -182,12 +182,32 @@
                       HorizontalContentAlignment="Stretch"
                       ItemsSource="{Binding Tasks}"
                       SelectedItem="{Binding SelectedTask}">
-                <ListView.ItemTemplateSelector>
+                <!--<ListView.ItemTemplateSelector>
                     <local:TemplateSelector
                           EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
                           CreateTaskDataTemplate ="{StaticResource CreateTaskDataTemplate}"
                           TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
-                </ListView.ItemTemplateSelector>
+                </ListView.ItemTemplateSelector>-->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}">
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource TaskDataTemplate}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsModify}"  Value="true">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource EditTaskDataTemplate}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=IsNew}"  Value="true">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource CreateTaskDataTemplate}"/>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ListView>
 
             <StackPanel Grid.Row="2" Margin="0,4,0,3">
@@ -214,8 +234,8 @@
                     <local:TemplateSelector
                           EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
                           TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
-                </ListView.ItemTemplateSelector>                
-            </ListView>           
+                </ListView.ItemTemplateSelector>
+            </ListView>
         </Grid>
     </DockPanel>
 </Window>
