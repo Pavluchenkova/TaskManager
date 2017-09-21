@@ -20,10 +20,10 @@ namespace TasksManager.Application.ViewModel
 {
     public class MyTasks:ObservableCollection<TaskModel>
     {
-        public void Update()
-        {
-            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
-        }
+        //public void Update()
+        //{
+        //    OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
+        //}
 }
     public class TaskOverviewViewModel : INotifyPropertyChanged
     {
@@ -33,14 +33,16 @@ namespace TasksManager.Application.ViewModel
         private DialogService dialogService = new DialogService();
         private TaskDataService taskDataService;
 
+        private ObservableCollection<TaskModel> _tasks;
+        private ObservableCollection<TaskModel> _tasksInProcess;
+        private ObservableCollection<TaskModel> _tasksDone;
+
         private void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ObservableCollection<TaskModel> tasks;
-        private ObservableCollection<TaskModel> tasksInProcess;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
@@ -48,28 +50,43 @@ namespace TasksManager.Application.ViewModel
         public ICommand SaveNewTaskCommand { get; set; }
         public ICommand EditTaskCommand { get; set; }
         public CustomCommand SaveTaskCommand { get; set; }
+        public CustomCommand MakeDoneCommand { get; set; }
+
         public ObservableCollection<TaskModel> Tasks
         {
             get
             {
-                return tasks;
+                return _tasks;
             }
             set
             {
-                tasks = value;
+                _tasks = value;
                 RaisePropertyChanged("Tasks");
             }
         }
+
         public ObservableCollection<TaskModel> TasksInProcess
         {
             get
             {
-                return tasksInProcess;
+                return _tasksInProcess;
             }
             set
             {
-                tasksInProcess = value;
+                _tasksInProcess = value;
                 RaisePropertyChanged("TasksInProcess");
+            }
+        }
+        public ObservableCollection<TaskModel> TasksDone
+        {
+            get
+            {
+                return _tasksDone;
+            }
+            set
+            {
+                _tasksDone = value;
+                RaisePropertyChanged("TasksDone");
             }
         }
         public TaskModel SelectedTask
@@ -118,7 +135,7 @@ namespace TasksManager.Application.ViewModel
                 newTask = value;
                 RaisePropertyChanged("NewTask");
             }
-        }
+        }              
 
         public TaskOverviewViewModel()
         {
@@ -142,6 +159,23 @@ namespace TasksManager.Application.ViewModel
             SaveNewTaskCommand = new CustomCommand(SaveNewTask, CanSaveNewTask);
             EditTaskCommand = new CustomCommand(EditTask, CanEditTask);
             SaveTaskCommand = new CustomCommand(SaveTask, CanSaveTask);
+            MakeDoneCommand = new CustomCommand(MakeDone, CanMakeDone);
+        }
+
+        private bool CanMakeDone(object obj)
+        {
+            return true;
+        }
+
+        private void MakeDone(object obj)
+        {
+            var task = obj as TaskModel;
+            task.Status = TaskStatus.Done;
+            taskDataService.Update(task);
+
+            TasksDone.Add(task);
+            TasksInProcess.Remove(task);
+            Tasks.Remove(task);
         }
 
         private bool CanEditTask(object obj)
@@ -156,11 +190,10 @@ namespace TasksManager.Application.ViewModel
 
             foreach (var task in Tasks)
             {
-                if(task.IsModify == true)
+                if (task.IsModify == true)
                 {
                     task.IsModify = false;
                 }
-
             }
             SelectedTask.IsModify = true;
         }
@@ -190,15 +223,6 @@ namespace TasksManager.Application.ViewModel
 
         private void DeleteTask(object obj)
         {
-
-            //SelectedTask = obj as TaskModel;
-
-            //if (SelectedTask != null)
-            //{
-            //    taskDataService.Delete(SelectedTask);
-            //}
-            //Tasks.Remove(SelectedTask);
-
             TaskModel task = obj as TaskModel;
             if (task != null)
             {
@@ -206,7 +230,6 @@ namespace TasksManager.Application.ViewModel
             }
             Tasks.Remove(task);
             TasksInProcess.Remove(task);
-
         }
 
         private void AddTask(object obj)
@@ -237,6 +260,11 @@ namespace TasksManager.Application.ViewModel
         {
             Tasks = taskDataService.GetAll().ToObservableCollection();
             TasksInProcess = taskDataService.GetAllInProgress().ToObservableCollection();
-        }    
+            TasksDone = taskDataService.GetAllDone().ToObservableCollection();
+        }
+        public void SetColl(IObservable<TaskModel> t)
+        {
+
+        }
     }
 }

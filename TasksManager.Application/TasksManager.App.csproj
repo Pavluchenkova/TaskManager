@@ -78,6 +78,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="TemplateSelector\TemplateSelector.cs" />
+    <Compile Include="Utility\ListViewExtenders.cs" />
     <Compile Include="Utility\CustomCommand.cs" />
     <Compile Include="Utility\Messanger.cs" />
     <Compile Include="ViewModelLocator.cs" />

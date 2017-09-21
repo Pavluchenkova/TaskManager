@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:viewmodel="clr-namespace:TasksManager.Application.ViewModel"
+        xmlns:Extenders="clr-namespace:TasksManager.Application.Utility"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:TasksManager.Application.TemplateSelector"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -38,14 +39,15 @@
                 <DockPanel HorizontalAlignment="Stretch">
                     <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Done" 
-                                DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}">
+                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Done" Command="{Binding MakeDoneCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"                                
+                                DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}, Mode=TwoWay}">
                             <materialDesign:PackIcon Kind="Check"  Height="24" Width="24" />
                         </Button>
-                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Pensil" Command="{Binding EditTaskCommand}" 
+                        <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Edit" Command="{Binding EditTaskCommand}" 
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}" 
                                 DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" >
-                            <materialDesign:PackIcon Kind="Pencil" ToolTip="Edit" Height="24" Width="24" />
+                            <materialDesign:PackIcon Kind="Pencil"  Height="24" Width="24" />
                         </Button>
                         <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Delete"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
@@ -173,21 +175,24 @@
                 <RowDefinition Height="155"/>
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" Margin="0" materialDesign:ShadowAssist.ShadowDepth="Depth1" Mode="PrimaryLight" Height="19">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">All tasks:</TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">In Progress:</TextBlock>
             </materialDesign:ColorZone>
             <ListView Grid.Column="0" 
                       Grid.Row ="1"
                       Margin="0"
                       Name="TaskListView"
                       HorizontalContentAlignment="Stretch"
-                      ItemsSource="{Binding Tasks}"
-                      SelectedItem="{Binding SelectedTask}">
+                      ItemsSource="{Binding Tasks}"                      
+                      SelectedItem="{Binding SelectedTask}"
+                      IsSynchronizedWithCurrentItem="True"
+                      Extenders:ListViewExtenders.AutoScrollToCurrentItem ="True">
                 <!--<ListView.ItemTemplateSelector>
                     <local:TemplateSelector
                           EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
                           CreateTaskDataTemplate ="{StaticResource CreateTaskDataTemplate}"
                           TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
                 </ListView.ItemTemplateSelector>-->
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ContentControl Content="{Binding}">

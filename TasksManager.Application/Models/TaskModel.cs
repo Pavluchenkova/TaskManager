@@ -15,6 +15,7 @@ namespace TasksManager.Application.Models
         private string description;
         private bool _isNew;
         private bool _isModify;
+        private TaskStatus _status;
 
         public TaskModel()
         {
@@ -28,7 +29,18 @@ namespace TasksManager.Application.Models
         public string Description { get; set; }
         public TaskCategory Category { get; set; }
         public DateTime CreationDate { get; set; }
-        public TaskStatus Status { get; set; }
+        public TaskStatus Status {
+            get
+            {
+                return _status;
+            }
+
+            set
+            {
+                _status = value;
+                RaisePropertyChanged("Status");
+            }
+        }
         public TaskPriority Priority { get; set; }
         public bool IsNew { get; set; }
         public bool IsModify
