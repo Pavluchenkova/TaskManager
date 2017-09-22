@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="TaskOverviewView" Height="600" Width="800"
+        Title="TaskOverviewView" Height="600" Width="400"
         DataContext="{Binding Source={StaticResource mainViewModelLocator}, Path=TaskOverviewViewModel}">
 
     <Window.Resources>
@@ -27,7 +27,6 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="true">
                     <Setter Property="Visibility" Value="visible"/>
                 </DataTrigger>
-
                 <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=DataContext.IsModify}" Value="true">
                     <Setter Property="" Value="visible"/>
                 </DataTrigger-->
@@ -94,9 +93,9 @@
                 <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding NewTask.Description, Mode=TwoWay}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
                 <Button Grid.Row="5" Grid.Column="2"
-                        Command="{Binding SaveNewTaskCommand}"
+                        Command="{Binding SaveTaskCommand}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
                         HorizontalAlignment="Right"
                         Margin="5"
                         ToolTip="Save new"
@@ -159,61 +158,56 @@
                                   Mode="PrimaryMid"
                                   DockPanel.Dock="Top">
             <DockPanel>
-                <ToggleButton DockPanel.Dock="Left" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Task Manager</TextBlock>
+                   
+                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <StackPanel>
+                        <Button Content="To Do" Command="{Binding ChooseToDoCommand}"/>
+                        <Button Content="In Process" Command="{Binding ChooseInProcessCommand}"/>
+                        <Button Content="Done" Command="{Binding ChooseDoneCommand}"/>
+                        <Separator/>
+                        <Button Content="Goodbye"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20">Task Manager</TextBlock>
             </DockPanel>
         </materialDesign:ColorZone>
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="26"></RowDefinition>
-                <RowDefinition/>
-                <RowDefinition Height="155"/>
+                <RowDefinition />
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
-            <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" Margin="0" materialDesign:ShadowAssist.ShadowDepth="Depth1" Mode="PrimaryLight" Height="19">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">In Progress:</TextBlock>
-            </materialDesign:ColorZone>
-            <ListView Grid.Column="0" 
-                      Grid.Row ="1"
-                      Margin="0"
-                      Name="TaskListView"
+                    <ListView 
+                      Grid.Column="0"
+                      Grid.Row="0"
+                      Name="TaskListView"                        
                       HorizontalContentAlignment="Stretch"
                       ItemsSource="{Binding Tasks}"                      
-                      SelectedItem="{Binding SelectedTask}"
-                      IsSynchronizedWithCurrentItem="True"
-                      Extenders:ListViewExtenders.AutoScrollToCurrentItem ="True">
-                <!--<ListView.ItemTemplateSelector>
-                    <local:TemplateSelector
-                          EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
-                          CreateTaskDataTemplate ="{StaticResource CreateTaskDataTemplate}"
-                          TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
-                </ListView.ItemTemplateSelector>-->
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ContentControl Content="{Binding}">
-                            <ContentControl.Style>
-                                <Style TargetType="{x:Type ContentControl}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource TaskDataTemplate}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsModify}"  Value="true">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource EditTaskDataTemplate}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsNew}"  Value="true">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource CreateTaskDataTemplate}"/>
-                                        </DataTrigger>
-
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ListView>
+                      SelectedItem="{Binding SelectedTask}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}">
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource TaskDataTemplate}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsModify}"  Value="true">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource EditTaskDataTemplate}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsNew}"  Value="true">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource CreateTaskDataTemplate}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListView>
+ 
 
             <StackPanel Grid.Row="2" Margin="0,4,0,3">
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
@@ -224,23 +218,6 @@
                     <materialDesign:PackIcon Kind="Plus"  Height="24" Width="24" />
                 </Button>
             </StackPanel>
-            <materialDesign:ColorZone Grid.Column="1" Grid.Row="0" Margin="0" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryLight" Height="19">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">In Progress</TextBlock>
-            </materialDesign:ColorZone>
-            <ListView Grid.Column="1"
-                      Grid.Row="1"
-                      Grid.RowSpan="2"
-                      Margin="0"
-                      ItemsSource="{Binding TasksInProcess}"
-                      Name="TaskInProgressListView"
-                      HorizontalContentAlignment="Stretch"
-                      SelectedItem="{Binding SelectedTask}">
-                <ListView.ItemTemplateSelector>
-                    <local:TemplateSelector
-                          EditTaskDataTemplate = "{StaticResource EditTaskDataTemplate}"
-                          TaskDataTemplate = "{StaticResource TaskDataTemplate}"/>
-                </ListView.ItemTemplateSelector>
-            </ListView>
         </Grid>
     </DockPanel>
 </Window>

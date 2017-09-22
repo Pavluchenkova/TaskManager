@@ -36,6 +36,7 @@ namespace TasksManager.Application.ViewModel
         private ObservableCollection<TaskModel> _tasks;
         private ObservableCollection<TaskModel> _tasksInProcess;
         private ObservableCollection<TaskModel> _tasksDone;
+        private ObservableCollection<TaskModel> _tasksToDo;
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -43,14 +44,15 @@ namespace TasksManager.Application.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
         public ICommand DeleteTaskCommand { get; set; }
-        public ICommand SaveNewTaskCommand { get; set; }
         public ICommand EditTaskCommand { get; set; }
         public CustomCommand SaveTaskCommand { get; set; }
         public CustomCommand MakeDoneCommand { get; set; }
+        public CustomCommand ChooseInProcessCommand { get; set; }
+        public CustomCommand ChooseDoneCommand { get; set; }
+        public CustomCommand ChooseToDoCommand { get; set; }
 
         public ObservableCollection<TaskModel> Tasks
         {
@@ -89,6 +91,18 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged("TasksDone");
             }
         }
+        public ObservableCollection<TaskModel> TasksToDo
+        {
+            get
+            {
+                return _tasksToDo;
+            }
+            set
+            {
+                _tasksToDo = value;
+                RaisePropertyChanged("TasksTodo");
+            }
+        }
         public TaskModel SelectedTask
         {
             get
@@ -99,6 +113,18 @@ namespace TasksManager.Application.ViewModel
             {
                 selectedTask = value;
                 RaisePropertyChanged("SelectedTask");
+            }
+        }
+        public TaskModel NewTask
+        {
+            get
+            {
+                return newTask;
+            }
+            set
+            {
+                newTask = value;
+                RaisePropertyChanged("NewTask");
             }
         }
 
@@ -123,20 +149,14 @@ namespace TasksManager.Application.ViewModel
                 return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
             }
         }
-
-        public TaskModel NewTask
+        public IEnumerable<TaskCategory> SelectTaskCategory
         {
             get
             {
-                return newTask;
+                return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
             }
-            set
-            {
-                newTask = value;
-                RaisePropertyChanged("NewTask");
-            }
-        }              
-
+        }
+        
         public TaskOverviewViewModel()
         {
             taskDataService = new TaskDataService();
@@ -156,10 +176,40 @@ namespace TasksManager.Application.ViewModel
             DetailCommand = new CustomCommand(ShowTaskDetail, CanShowTaskDetail);
             AddTaskCommand = new CustomCommand(AddTask, CanAddTask);
             DeleteTaskCommand = new CustomCommand(DeleteTask, CanDeleteTask);
-            SaveNewTaskCommand = new CustomCommand(SaveNewTask, CanSaveNewTask);
             EditTaskCommand = new CustomCommand(EditTask, CanEditTask);
             SaveTaskCommand = new CustomCommand(SaveTask, CanSaveTask);
             MakeDoneCommand = new CustomCommand(MakeDone, CanMakeDone);
+            ChooseInProcessCommand = new CustomCommand(ChooseInProcess, CanChooseInProcess);
+            ChooseDoneCommand = new CustomCommand(ChooseDone, CanChooseDone);
+            ChooseToDoCommand = new CustomCommand(ChooseToDo, CanChooseToDo);
+        }
+
+        private void ChooseInProcess(object obj)
+        {
+            Tasks = TasksInProcess;
+        }
+        private bool CanChooseInProcess(object obj)
+        {
+            return true;
+        }
+
+        private void ChooseToDo(object obj)
+        {
+            Tasks = TasksToDo;
+        }
+
+        private bool CanChooseToDo(object obj)
+        {
+            return true;
+        }
+
+        private void ChooseDone(object obj)
+        {
+            Tasks = TasksDone;
+        }
+        private bool CanChooseDone(object obj)
+        {
+            return true;
         }
 
         private bool CanMakeDone(object obj)
@@ -197,15 +247,7 @@ namespace TasksManager.Application.ViewModel
             }
             SelectedTask.IsModify = true;
         }
-        private bool CanSaveNewTask(object obj)
-        {
-            return true;
-        }
-        private void SaveNewTask(object obj)
-        {
-            taskDataService.Add(Tasks);
-            LoadData();
-        }
+     
         private bool CanSaveTask(object obj)
         {
             return true;
@@ -213,8 +255,33 @@ namespace TasksManager.Application.ViewModel
         private void SaveTask(object obj)
         {
             TaskModel task = obj as TaskModel;
-            taskDataService.Update(task);
-            LoadData();
+
+            if (task.IsNew == true)
+            {
+                taskDataService.Add(Tasks);
+                task.IsNew = false;
+            }
+            else
+            {
+                taskDataService.Update(task);
+                task.IsModify = false;
+            }
+
+            var ind = Tasks.IndexOf(task);
+
+            Tasks.RemoveAt(ind);
+            if (task.Status == TaskStatus.ToDo)
+            {
+                TasksToDo.Add(task);               
+            }
+            else if (task.Status == TaskStatus.InProgress)
+            {
+                TasksInProcess.Add(task);
+            }
+            else
+            {
+                TasksDone.Add(task);
+            }
         }
         private bool CanDeleteTask(object obj)
         {
@@ -229,12 +296,10 @@ namespace TasksManager.Application.ViewModel
                 taskDataService.Delete(task);
             }
             Tasks.Remove(task);
-            TasksInProcess.Remove(task);
         }
 
         private void AddTask(object obj)
-        {
-            var listView = obj as ListView;
+        {           
             NewTask = new TaskModel();
             NewTask.IsNew = true;
             Tasks.Add(NewTask);
@@ -257,14 +322,11 @@ namespace TasksManager.Application.ViewModel
         }
 
         private void LoadData()
-        {
-            Tasks = taskDataService.GetAll().ToObservableCollection();
+        {          
             TasksInProcess = taskDataService.GetAllInProgress().ToObservableCollection();
             TasksDone = taskDataService.GetAllDone().ToObservableCollection();
-        }
-        public void SetColl(IObservable<TaskModel> t)
-        {
-
+            TasksToDo = taskDataService.GetAllToDo().ToObservableCollection();
+            Tasks = TasksToDo;
         }
     }
 }
