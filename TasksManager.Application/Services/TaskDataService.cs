@@ -16,8 +16,8 @@ namespace TasksManager.Application
 {
     public class TaskDataService : IDataServise<TaskModel>
     {
-        TaskRepository repository = new TaskRepository();          //Uncoment after finish
-        //MockupRepository repository = new MockupRepository();   
+        //TaskRepository repository = new TaskRepository();          //Uncoment after finish
+        MockupRepository repository = new MockupRepository();   
         Convertor convertor = new Convertor();
         public void Add(TaskModel entity)
         {

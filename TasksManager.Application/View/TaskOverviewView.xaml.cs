@@ -27,6 +27,13 @@ namespace TasksManager.Application.View
             InitializeComponent();
           //  DataContext = new TaskOverviewViewModel();
         }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            // Begin dragging the window
+            this.DragMove();
+        }
 
     }
 }
