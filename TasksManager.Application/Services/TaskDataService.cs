@@ -61,7 +61,12 @@ namespace TasksManager.Application
             var taskDone = task.Where(e => e.Status == Model.Entities.TaskStatus.Done).ToList();
             return convertor.ConvertToTaskModel(taskDone);
         }
+        internal TaskModel GetById(TaskModel taskModel)
+        {
+            var task = repository.GetById(taskModel.TaskId);
 
+            return convertor.ConvertToTaskModel(task);     
+        }
 
         internal void Add(ObservableCollection<TaskModel> taskModels)
         {

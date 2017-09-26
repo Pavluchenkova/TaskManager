@@ -11,20 +11,11 @@ namespace TasksManager.Application
     {
         private static TaskOverviewViewModel taskOverviewViewModel =
             new TaskOverviewViewModel();
-        private static TaskDetailViewModel taskDetailViewModel =
-            new TaskDetailViewModel();
         public static TaskOverviewViewModel TaskOverviewViewModel
         {
             get
             {
                 return taskOverviewViewModel;
-            }
-        }
-        public static TaskDetailViewModel TaskDetailViewModel
-        {
-            get
-            {
-                return taskDetailViewModel;
             }
         }
     }

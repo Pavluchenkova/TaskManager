@@ -53,7 +53,7 @@ namespace TasksManager.Application.ViewModel
         public CustomCommand ChooseInProcessCommand { get; set; }
         public CustomCommand ChooseDoneCommand { get; set; }
         public CustomCommand ChooseToDoCommand { get; set; }
-
+        public CustomCommand CancelCommand { get; set; }
         public ObservableCollection<TaskModel> Tasks
         {
             get
@@ -161,14 +161,7 @@ namespace TasksManager.Application.ViewModel
         {
             taskDataService = new TaskDataService();
             LoadData();
-            LoadCommands();
-            Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
-        }
-
-        private void OnUpdateListMessageReceived(UpdateListMessage obj)
-        {
-            LoadData();
-            dialogService.CloseDialog();
+            LoadCommands();           
         }
 
         private void LoadCommands()
@@ -182,6 +175,28 @@ namespace TasksManager.Application.ViewModel
             ChooseInProcessCommand = new CustomCommand(ChooseInProcess, CanChooseInProcess);
             ChooseDoneCommand = new CustomCommand(ChooseDone, CanChooseDone);
             ChooseToDoCommand = new CustomCommand(ChooseToDo, CanChooseToDo);
+            CancelCommand = new CustomCommand(Cancel, CanCancel);
+        }
+
+        private bool CanCancel(object obj)
+        {
+            return true;
+        }
+
+        private void Cancel(object obj)
+        {
+            var task = obj as TaskModel;
+            if (task.IsNew == true)
+            {
+                Tasks.Remove(task);
+                NewTask = null;
+            }
+            if(task.IsModify == true)
+            {
+                Tasks.Remove(task);
+                task = taskDataService.GetById(task);                
+                Tasks.Add(task);             
+            }
         }
 
         private void ChooseInProcess(object obj)
@@ -260,6 +275,7 @@ namespace TasksManager.Application.ViewModel
             {
                 taskDataService.Add(Tasks);
                 task.IsNew = false;
+                NewTask = null;
             }
             else
             {
@@ -307,7 +323,14 @@ namespace TasksManager.Application.ViewModel
 
         private bool CanAddTask(object obj)
         {
-            return true;                                        //TODO
+            if (NewTask != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void ShowTaskDetail(object obj)

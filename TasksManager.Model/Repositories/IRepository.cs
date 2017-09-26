@@ -9,7 +9,7 @@ namespace TasksManager.Model.Repositories
 {
     public interface IRepository<T>
     {
-        T GetBy(Expression<Func<T, bool>> predicate);
+        T GetById(Guid id);
         IEnumerable<T> GetAll();
         void Add(T entity);
         void Update(T entity);

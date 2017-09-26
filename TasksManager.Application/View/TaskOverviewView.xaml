@@ -21,13 +21,14 @@
         BorderThickness="0"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
-        AllowsTransparency="True"  
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
 	    
         DataContext="{Binding Source={StaticResource mainViewModelLocator}, Path=TaskOverviewViewModel}">
 
     <Window.Resources>
         <local:TemplateSelector x:Key="TemplateSelector"/>
-
+        
         <Style x:Key="ShowHideButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
@@ -39,7 +40,6 @@
                 </DataTrigger-->
             </Style.Triggers>
         </Style>
-
         <DataTemplate x:Key="TaskDataTemplate">
             <Border BorderThickness="0">
                 <DockPanel HorizontalAlignment="Stretch">
@@ -86,29 +86,52 @@
                 <Label Grid.Row="3" VerticalContentAlignment="Bottom"  Content="Category" Grid.ColumnSpan="2"></Label>
                 <Label Grid.Row="4" VerticalContentAlignment="Bottom"  Content="Notes" Grid.ColumnSpan="2"></Label>
 
-                <TextBox  Grid.Row="0" Grid.Column = "2" Text="{Binding NewTask.Title, Mode=TwoWay}"
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
-                <ComboBox Grid.Row="1" Grid.Column = "2" ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding NewTask.Status}"
+                <TextBox  Grid.Row="0" Grid.Column = "1"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}">
+                    <TextBox.Text>
+                        <Binding Path="NewTask.Title">
+                            <!--<Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>-->
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox Grid.Row="1" Grid.Column = "1" ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding NewTask.Status}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select status" Height="28" Margin="0,1"/>
-                <ComboBox Grid.Row="2" Grid.Column = "2" ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding NewTask.Priority}"
+                <ComboBox Grid.Row="2" Grid.Column = "1" ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding NewTask.Priority}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select priority" Height="28" Margin="0,1"></ComboBox>
-                <ComboBox Grid.Row="3" Grid.Column = "2" ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding NewTask.Category}"
+                <ComboBox Grid.Row="3" Grid.Column = "1" ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding NewTask.Category}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           materialDesign:HintAssist.Hint="Select category" Height="28" Margin="0,1"></ComboBox>
-                <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding NewTask.Description, Mode=TwoWay}"
+                <TextBox  Grid.Row="4" Grid.Column = "1" Text="{Binding NewTask.Description, Mode=TwoWay}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
-                <Button Grid.Row="5" Grid.Column="2"
+                <DockPanel Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Right" >
+                   
+                    <Button 
                         Command="{Binding SaveTaskCommand}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
-                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
                         Margin="5"
                         ToolTip="Save new"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
-                    <materialDesign:PackIcon Kind="Check"/>
-                </Button>
+                        <materialDesign:PackIcon Kind="Check"/>
+                    </Button>
+                    <Button 
+                        Command="{Binding CancelCommand}"
+                        DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
+                        DockPanel.Dock="Right"
+                        Margin="5"
+                        ToolTip="Cancel"                     
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
+                        <materialDesign:PackIcon Kind="WindowClose"/>
+                    </Button>  
+                   
+                </DockPanel>
+               
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="EditTaskDataTemplate">
@@ -144,28 +167,41 @@
                           materialDesign:HintAssist.Hint="Select category" Height="28" Margin="0,1"></ComboBox>
                 <TextBox  Grid.Row="4" Grid.Column = "2" Text="{Binding SelectedTask.Description, Mode=TwoWay}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"></TextBox>
-                <Button Grid.Row="5" Grid.Column="2"
+                <DockPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right">
+
+                    <Button 
                         Command="{Binding SaveTaskCommand}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
-                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
                         Margin="5"
-                        ToolTip="Save Changes"
+                        ToolTip="Save"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
-                    <materialDesign:PackIcon Kind="Check"/>
-                </Button>
+                        <materialDesign:PackIcon Kind="Check"/>
+                    </Button>
+                    <Button 
+                        Command="{Binding CancelCommand}"
+                        DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
+                        DockPanel.Dock="Right"
+                        Margin="5"
+                        ToolTip="Cancel"                     
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="Auto">
+                        <materialDesign:PackIcon Kind="WindowClose"/>
+                    </Button>
+
+                </DockPanel>
             </Grid>
         </DataTemplate>
     </Window.Resources>
 
-    <DockPanel>
+    <DockPanel>        
         <materialDesign:ColorZone Padding="16"
                                   Margin="0"
                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                   Mode="PrimaryMid"
                                   DockPanel.Dock="Top">
-            <DockPanel>
-                   
+            <DockPanel>                
                 <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel>
                         <Button Content="To Do" Command="{Binding ChooseToDoCommand}"/>
@@ -173,7 +209,7 @@
                         <Button Content="Done" Command="{Binding ChooseDoneCommand}"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20">Task Manager</TextBlock>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="Task Manager"></TextBlock>
             </DockPanel>
         </materialDesign:ColorZone>
 
@@ -185,13 +221,13 @@
                 <RowDefinition />
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
-                    <ListView 
+            <ListView 
                       Grid.Column="0"
                       Grid.Row="0"
                       Name="TaskListView"                        
                       HorizontalContentAlignment="Stretch"
                       ItemsSource="{Binding Tasks}"                      
-                      SelectedItem="{Binding SelectedTask}" >
+                      SelectedItem="{Binding SelectedTask}">                
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding}">

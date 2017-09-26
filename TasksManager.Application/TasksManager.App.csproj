@@ -84,9 +84,7 @@
     <Compile Include="Utility\CustomCommand.cs" />
     <Compile Include="Utility\Messanger.cs" />
     <Compile Include="ViewModelLocator.cs" />
-    <Compile Include="ViewModel\TaskDetailViewModel.cs" />
     <Compile Include="ViewModel\TaskOverviewViewModel.cs" />
-    <Compile Include="ViewModel\UpdateListMessage.cs" />
     <Compile Include="View\TaskDetailView.xaml.cs">
       <DependentUpon>TaskDetailView.xaml</DependentUpon>
     </Compile>

@@ -7,21 +7,25 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using TasksManager.Infrastructure.DAL;
 using TasksManager.Model;
+using TasksManager.Model.Repositories;
 
 namespace TasksManager.Infrastructure.Repository
 {
-    public class TaskRepository : BaseRepository<Task, TaskContext>
+    public class TaskRepository : IRepository<Task>
     {
-        public TaskRepository() : base()
+        private readonly TaskContext _dbContext;
+        public TaskRepository() 
         {
+            _dbContext = new TaskContext();
         }
-        public override void Delete(Task entity)
+        public TaskContext DbContext => _dbContext;
+        public void Delete(Task entity)
         {
             var task = GetById(entity.TaskId);
             DbContext.Set<Task>().Remove(task);
             DbContext.SaveChanges();
         }
-        public override void Add(Task entity)
+        public void Add(Task entity)
         {
             DbContext.Set<Task>().Add(entity);
             DbContext.SaveChanges();
@@ -29,13 +33,17 @@ namespace TasksManager.Infrastructure.Repository
 
         public Task GetById(Guid id)
         {
-            return GetBy(e => e.TaskId == id);
+            return DbContext.Set<Task>().FirstOrDefault(e => e.TaskId == id);          
         }
-        public override void Update(Task task)
+        public void Update(Task task)
         {
             DbContext.Entry(task).State = EntityState.Modified;
             DbContext.SaveChanges();
         }
 
+        public IEnumerable<Task> GetAll()
+        {
+            return DbContext.Set<Task>().ToList();
+        }
     }
 }
