@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TasksManager.Model;
 
 namespace TasksManager.Infrastructure.Repositories
@@ -36,8 +35,8 @@ namespace TasksManager.Infrastructure.Repositories
 
         public Task GetTaskById(Task task)
         {
-           //if (tasks == null)
-           //     LoadTasks();
+            //if (tasks == null)
+            //     LoadTasks();
             return tasks.Where(c => c.TaskId == task.TaskId).FirstOrDefault();
         }
 
@@ -49,7 +48,7 @@ namespace TasksManager.Infrastructure.Repositories
 
         public void Update(Task task)
         {
-            Task taskToUpdate = tasks.Where(c => c.TaskId == task.TaskId).FirstOrDefault();                
+            Task taskToUpdate = tasks.Where(c => c.TaskId == task.TaskId).FirstOrDefault();
 
             taskToUpdate.Title = task.Title;
             taskToUpdate.Status = task.Status;
@@ -57,7 +56,7 @@ namespace TasksManager.Infrastructure.Repositories
             taskToUpdate.Category = task.Category;
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;
-        
+
         }
         public void Add(Task entity)
         {
@@ -86,18 +85,18 @@ namespace TasksManager.Infrastructure.Repositories
                    Category = Model.TaskCategory.Work,
                    CreationDate = new DateTime(2017,01,08),
                    Status = Model.Entities.TaskStatus.InProgress,
-                   Priority =Model.TaskPriority.High
+                   Priority = Model.TaskPriority.High
 
                },
                new Task()
                {
                    TaskId = Guid.NewGuid(),
-                   Title ="new",
+                   Title ="Code review",
                    Description = "new",
                    Category = Model.TaskCategory.Work,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.InProgress,
-                   Priority =Model.TaskPriority.High
+                   Status = Model.Entities.TaskStatus.ToDo,
+                   Priority = Model.TaskPriority.High
 
                },
                new Task()
@@ -108,11 +107,11 @@ namespace TasksManager.Infrastructure.Repositories
                    Category = Model.TaskCategory.Study,
                    CreationDate = new DateTime(2017,01,08),
                    Status = Model.Entities.TaskStatus.InProgress,
-                   Priority =Model.TaskPriority.High
+                   Priority = Model.TaskPriority.High
 
                }
             };
-           
+
         }
 
     }

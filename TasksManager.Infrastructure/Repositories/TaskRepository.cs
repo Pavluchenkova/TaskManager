@@ -2,48 +2,52 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using TasksManager.Infrastructure.DAL;
 using TasksManager.Model;
 using TasksManager.Model.Repositories;
 
-namespace TasksManager.Infrastructure.Repository
+namespace TasksManager.Infrastructure.Repositories 
 {
     public class TaskRepository : IRepository<Task>
     {
         private readonly TaskContext _dbContext;
-        public TaskRepository() 
+
+        public TaskContext DbContext => _dbContext;
+
+        public TaskRepository()
         {
             _dbContext = new TaskContext();
         }
-        public TaskContext DbContext => _dbContext;
-        public void Delete(Task entity)
+
+        public void Delete(Guid id)
         {
-            var task = GetById(entity.TaskId);
-            DbContext.Set<Task>().Remove(task);
+            var entity = GetById(id); // TODO: Remove retrieve of entity before delete. Try to use Entry(entity).State
+           // DbContext.Tasks.Remove(entity);
+            DbContext.Entry(entity).State = EntityState.Deleted;
             DbContext.SaveChanges();
         }
+
         public void Add(Task entity)
         {
-            DbContext.Set<Task>().Add(entity);
+            DbContext.Tasks.Add(entity);
             DbContext.SaveChanges();
         }
 
         public Task GetById(Guid id)
         {
-            return DbContext.Set<Task>().FirstOrDefault(e => e.TaskId == id);          
+            return DbContext.Tasks.FirstOrDefault(e => e.TaskId == id);
         }
-        public void Update(Task task)
+
+        public void Update(Guid id)
         {
-            DbContext.Entry(task).State = EntityState.Modified;
+            var entity = GetById(id);
+            DbContext.Entry(entity).State = EntityState.Modified;
             DbContext.SaveChanges();
         }
 
         public IEnumerable<Task> GetAll()
         {
-            return DbContext.Set<Task>().ToList();
+            return DbContext.Tasks.ToList();
         }
     }
 }

@@ -78,11 +78,9 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Services\Convertor.cs" />
-    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\TaskDataService.cs" />
-    <Compile Include="TemplateSelector\TemplateSelector.cs" />
     <Compile Include="Utility\CustomCommand.cs" />
-    <Compile Include="Utility\Messanger.cs" />
+    <Compile Include="Utility\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\TaskOverviewViewModel.cs" />
     <Compile Include="View\TaskDetailView.xaml.cs">
@@ -91,16 +89,8 @@
     <Compile Include="View\TaskOverviewView.xaml.cs">
       <DependentUpon>TaskOverviewView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\TaskDetailView.xaml">

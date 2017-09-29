@@ -24,7 +24,6 @@ namespace TasksManager.Application.Models
             TaskId = Guid.NewGuid();
             IsNew = false;
             IsModify = false;
-
         }
 
         public string this[string columnName]
@@ -32,9 +31,9 @@ namespace TasksManager.Application.Models
             get
             {
                 string error = String.Empty;
-                if (Title.Length == 0)
+                if (String.IsNullOrEmpty(Title))
                 {
-                    error = "Please type a title";
+                    error = "Enter the title";
                 }
                 return error;
             }
@@ -42,11 +41,10 @@ namespace TasksManager.Application.Models
 
         public Guid TaskId { get; set; }
         public DateTime CreationDate { get; set; }
-        public string Title {
-            get
-            {
-                return _title;
-            }
+
+        public string Title
+        {
+            get { return _title; }
 
             set
             {
@@ -54,12 +52,10 @@ namespace TasksManager.Application.Models
                 RaisePropertyChanged("Title");
             }
         }
+
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 _description = value;
@@ -67,22 +63,19 @@ namespace TasksManager.Application.Models
             }
         }
 
-        public TaskCategory Category {
-            get
-            {
-                return _category;
-            }
+        public TaskCategory Category
+        {
+            get { return _category; }
             set
             {
-                _category= value;
+                _category = value;
                 RaisePropertyChanged("Category");
             }
-        }   
-        public TaskStatus Status {
-            get
-            {
-                return _status;
-            }
+        }
+
+        public TaskStatus Status
+        {
+            get { return _status; }
 
             set
             {
@@ -90,22 +83,20 @@ namespace TasksManager.Application.Models
                 RaisePropertyChanged("Status");
             }
         }
-        public TaskPriority Priority {
-            get
-            {
-                return _priority;
-            }
+
+        public TaskPriority Priority
+        {
+            get { return _priority; }
             set
             {
-                _priority= value;
+                _priority = value;
                 RaisePropertyChanged("Priority");
             }
         }
-        public bool IsNew {
-            get
-            {
-                return _isNew;
-            }
+
+        public bool IsNew
+        {
+            get { return _isNew; }
 
             set
             {
@@ -113,13 +104,11 @@ namespace TasksManager.Application.Models
                 RaisePropertyChanged("IsNew");
             }
         }
+
         public bool IsModify
         {
 
-            get
-            {
-                return _isModify;
-            }
+            get { return _isModify; }
 
             set
             {
@@ -128,12 +117,15 @@ namespace TasksManager.Application.Models
             }
         }
 
-        public string Error
+        string IDataErrorInfo.Error
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

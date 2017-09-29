@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using Task = TasksManager.Model.Task;
 
 namespace TasksManager.Infrastructure.DAL
@@ -22,6 +19,16 @@ namespace TasksManager.Infrastructure.DAL
                    CreationDate = new DateTime(2017,01,08),
                    Status = Model.Entities.TaskStatus.Done,
                    Priority = Model.TaskPriority.Medium
+               },
+               new Task ()
+               {
+                   TaskId = Guid.NewGuid(),
+                   Title ="Code review",
+                   Description ="Task manager app",
+                   Category = Model.TaskCategory.Finance,
+                   CreationDate = new DateTime(2017,01,08),
+                   Status = Model.Entities.TaskStatus.ToDo,
+                   Priority = Model.TaskPriority.High
                },
                new Task()
                {
@@ -44,7 +51,6 @@ namespace TasksManager.Infrastructure.DAL
                    Status = Model.Entities.TaskStatus.InProgress,
                    Priority =Model.TaskPriority.High
                }
-
             };
 
             context.Tasks.AddRange(tasks);

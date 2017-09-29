@@ -1,6 +1,6 @@
 ﻿namespace TasksManager.Model
 {
-    public enum TaskCategory:int
+    public enum TaskCategory : int
     {
         Personal = 0,
         Work = 1,

@@ -15,8 +15,8 @@ namespace TasksManager.Infrastructure.DAL
         }
 
         public TaskContext()
-            :base("TaskContext")
-            { }
+            : base("TaskContext")
+        { }
         public DbSet<Task> Tasks { get; set; }
     }
 }

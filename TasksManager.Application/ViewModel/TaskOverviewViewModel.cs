@@ -1,42 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using TasksManager.Model;
 using TasksManager.Application.Extensions;
 using TasksManager.Application.Models;
 using System.Windows.Input;
-using TasksManager.Application.Utility;
-using TasksManager.Application.View;
 using TasksManager.Application.Services;
+using TasksManager.Application.Utility;
 using TasksManager.Model.Entities;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace TasksManager.Application.ViewModel
 {
-    public class MyTasks:ObservableCollection<TaskModel>
-    {
-        //public void Update()
-        //{
-        //    OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
-        //}
-}
     public class TaskOverviewViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private TaskModel newTask;
         private TaskModel selectedTask;
-        private DialogService dialogService = new DialogService();
         private TaskDataService taskDataService;
 
         private ObservableCollection<TaskModel> _tasks;
-        private ObservableCollection<TaskModel> _tasksInProcess;
+        private ObservableCollection<TaskModel> _tasksInProgress;
         private ObservableCollection<TaskModel> _tasksDone;
         private ObservableCollection<TaskModel> _tasksToDo;
+        private TaskStatus _filterName;
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -50,7 +38,7 @@ namespace TasksManager.Application.ViewModel
         public ICommand EditTaskCommand { get; set; }
         public CustomCommand SaveTaskCommand { get; set; }
         public CustomCommand MakeDoneCommand { get; set; }
-        public CustomCommand ChooseInProcessCommand { get; set; }
+        public CustomCommand ChooseInProgressCommand { get; set; }
         public CustomCommand ChooseDoneCommand { get; set; }
         public CustomCommand ChooseToDoCommand { get; set; }
         public CustomCommand CancelCommand { get; set; }
@@ -58,7 +46,18 @@ namespace TasksManager.Application.ViewModel
         {
             get
             {
-                return _tasks;
+                switch (FilterName)
+                {
+                    case TaskStatus.ToDo:
+                        return TasksToDo;
+                    case TaskStatus.InProgress:
+                        return TasksInProgress;
+                    case TaskStatus.Done:
+                        return TasksDone;
+                    default:
+                        return TasksToDo;
+                }
+
             }
             set
             {
@@ -67,16 +66,16 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        public ObservableCollection<TaskModel> TasksInProcess
+        public ObservableCollection<TaskModel> TasksInProgress
         {
             get
             {
-                return _tasksInProcess;
+                return _tasksInProgress;
             }
             set
             {
-                _tasksInProcess = value;
-                RaisePropertyChanged("TasksInProcess");
+                _tasksInProgress = value;
+                RaisePropertyChanged("TasksInProgress");
             }
         }
         public ObservableCollection<TaskModel> TasksDone
@@ -115,6 +114,20 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged("SelectedTask");
             }
         }
+        public TaskStatus FilterName
+        {
+            get
+            {
+                return _filterName;
+            }
+            set
+            {
+                _filterName = value;
+                RaisePropertyChanged("FilterName");
+                RaisePropertyChanged("Tasks");
+            }
+        }
+
         public TaskModel NewTask
         {
             get
@@ -156,23 +169,24 @@ namespace TasksManager.Application.ViewModel
                 return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
             }
         }
-        
+
+        public CustomCommand ClearTextCommand { get; private set; }
+
         public TaskOverviewViewModel()
         {
             taskDataService = new TaskDataService();
             LoadData();
-            LoadCommands();           
+            LoadCommands();
         }
 
         private void LoadCommands()
         {
-            DetailCommand = new CustomCommand(ShowTaskDetail, CanShowTaskDetail);
             AddTaskCommand = new CustomCommand(AddTask, CanAddTask);
             DeleteTaskCommand = new CustomCommand(DeleteTask, CanDeleteTask);
             EditTaskCommand = new CustomCommand(EditTask, CanEditTask);
             SaveTaskCommand = new CustomCommand(SaveTask, CanSaveTask);
             MakeDoneCommand = new CustomCommand(MakeDone, CanMakeDone);
-            ChooseInProcessCommand = new CustomCommand(ChooseInProcess, CanChooseInProcess);
+            ChooseInProgressCommand = new CustomCommand(ChooseInProgress, CanChooseInProgress);
             ChooseDoneCommand = new CustomCommand(ChooseDone, CanChooseDone);
             ChooseToDoCommand = new CustomCommand(ChooseToDo, CanChooseToDo);
             CancelCommand = new CustomCommand(Cancel, CanCancel);
@@ -191,26 +205,26 @@ namespace TasksManager.Application.ViewModel
                 Tasks.Remove(task);
                 NewTask = null;
             }
-            if(task.IsModify == true)
+            if (task.IsModify == true)
             {
                 Tasks.Remove(task);
-                task = taskDataService.GetById(task);                
-                Tasks.Add(task);             
+                task = taskDataService.GetById(task.TaskId);
+                Tasks.Add(task);
             }
         }
 
-        private void ChooseInProcess(object obj)
+        private void ChooseInProgress(object obj)
         {
-            Tasks = TasksInProcess;
+            FilterName = TaskStatus.InProgress;
         }
-        private bool CanChooseInProcess(object obj)
+        private bool CanChooseInProgress(object obj)
         {
             return true;
         }
 
         private void ChooseToDo(object obj)
         {
-            Tasks = TasksToDo;
+            FilterName = TaskStatus.ToDo;
         }
 
         private bool CanChooseToDo(object obj)
@@ -220,13 +234,12 @@ namespace TasksManager.Application.ViewModel
 
         private void ChooseDone(object obj)
         {
-            Tasks = TasksDone;
+            FilterName = TaskStatus.Done;
         }
         private bool CanChooseDone(object obj)
         {
             return true;
         }
-
         private bool CanMakeDone(object obj)
         {
             return true;
@@ -239,83 +252,11 @@ namespace TasksManager.Application.ViewModel
             taskDataService.Update(task);
 
             TasksDone.Add(task);
-            TasksInProcess.Remove(task);
+            TasksInProgress.Remove(task);
             Tasks.Remove(task);
         }
-
-        private bool CanEditTask(object obj)
-        {
-            return true;
-        }
-
-        private void EditTask(object obj)
-        {
-         
-            SelectedTask = obj as TaskModel; ;
-
-            foreach (var task in Tasks)
-            {
-                if (task.IsModify == true)
-                {
-                    task.IsModify = false;
-                }
-            }
-            SelectedTask.IsModify = true;
-        }
-     
-        private bool CanSaveTask(object obj)
-        {
-            return true;
-        }
-        private void SaveTask(object obj)
-        {
-            TaskModel task = obj as TaskModel;
-
-            if (task.IsNew == true)
-            {
-                taskDataService.Add(Tasks);
-                task.IsNew = false;
-                NewTask = null;
-            }
-            else
-            {
-                taskDataService.Update(task);
-                task.IsModify = false;
-            }
-
-            var ind = Tasks.IndexOf(task);
-
-            Tasks.RemoveAt(ind);
-            if (task.Status == TaskStatus.ToDo)
-            {
-                TasksToDo.Add(task);               
-            }
-            else if (task.Status == TaskStatus.InProgress)
-            {
-                TasksInProcess.Add(task);
-            }
-            else
-            {
-                TasksDone.Add(task);
-            }
-        }
-        private bool CanDeleteTask(object obj)
-        {
-            return true;
-        }
-
-        private void DeleteTask(object obj)
-        {
-            TaskModel task = obj as TaskModel;
-            if (task != null)
-            {
-                taskDataService.Delete(task);
-            }
-            Tasks.Remove(task);
-        }
-
         private void AddTask(object obj)
-        {           
+        {
             NewTask = new TaskModel();
             NewTask.IsNew = true;
             Tasks.Add(NewTask);
@@ -333,23 +274,83 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        private void ShowTaskDetail(object obj)
+        private void EditTask(object obj)
         {
-            Messenger.Default.Send<TaskModel>(newTask);
-            dialogService.ShowDialog();
+
+            SelectedTask = obj as TaskModel; ;
+
+            foreach (var task in Tasks)
+            {
+                if (task.IsModify == true)
+                {
+                    task.IsModify = false;
+                }
+            }
+            SelectedTask.IsModify = true;
+        }
+        private bool CanEditTask(object obj)
+        {
+            return true;
         }
 
-        private bool CanShowTaskDetail(object obj)
+        private void SaveTask(object obj)
+        {
+            TaskModel task = obj as TaskModel;
+
+            if (task.IsNew == true)
+            {
+                taskDataService.Add(task);
+                task.IsNew = false;
+                NewTask = null;
+            }
+            else
+            {
+                taskDataService.Update(task);
+                task.IsModify = false;
+            }
+
+            var ind = Tasks.IndexOf(task);
+
+            Tasks.RemoveAt(ind);
+            if (task.Status == TaskStatus.ToDo)
+            {
+                TasksToDo.Add(task);
+            }
+            else if (task.Status == TaskStatus.InProgress)
+            {
+                TasksInProgress.Add(task);
+            }
+            else
+            {
+                TasksDone.Add(task);
+            }
+        }
+        private bool CanSaveTask(object obj)
+        {
+            return true;
+        }
+
+        private void DeleteTask(object obj)
+        {
+            TaskModel task = obj as TaskModel;
+            if (task != null)
+            {
+                taskDataService.Delete(task);
+            }
+            Tasks.Remove(task);
+        }
+
+        private bool CanDeleteTask(object obj)
         {
             return true;
         }
 
         private void LoadData()
-        {          
-            TasksInProcess = taskDataService.GetAllInProgress().ToObservableCollection();
+        {
+            TasksInProgress = taskDataService.GetAllInProgress().ToObservableCollection();
             TasksDone = taskDataService.GetAllDone().ToObservableCollection();
             TasksToDo = taskDataService.GetAllToDo().ToObservableCollection();
-            Tasks = TasksToDo;
+            Tasks = TasksToDo;          
         }
     }
 }

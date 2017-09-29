@@ -10,11 +10,9 @@ namespace TasksManager.Application.Services
     public class Convertor
     {
         public Convertor() { }
-
         public TaskModel ConvertToTaskModel(Task task)
         {
             TaskModel taskModel = new TaskModel();
-
             taskModel.TaskId = task.TaskId;
             taskModel.Title = task.Title;
             taskModel.Status = task.Status;
@@ -38,7 +36,6 @@ namespace TasksManager.Application.Services
             }).ToList();
             return taskModels;
         }
-
         public Task ConvertToTask(TaskModel taskModel)
         {
             var task = new Task();
@@ -53,6 +50,5 @@ namespace TasksManager.Application.Services
             return task;
         }
     }
-
 }
 
