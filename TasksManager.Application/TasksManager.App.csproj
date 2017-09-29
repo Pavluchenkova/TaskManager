@@ -81,7 +81,6 @@
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="Utility\CustomCommand.cs" />
     <Compile Include="Utility\NotEmptyValidationRule.cs" />
-    <Compile Include="Utility\TestClass.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\TaskOverviewViewModel.cs" />
     <Compile Include="View\TaskDetailView.xaml.cs">
