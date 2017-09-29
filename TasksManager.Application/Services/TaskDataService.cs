@@ -66,7 +66,7 @@ namespace TasksManager.Application.Services
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;
 
-           repository.Update(taskToUpdate.TaskId);
+            repository.Update(taskToUpdate.TaskId);
         }
     }
 

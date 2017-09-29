@@ -25,7 +25,6 @@ namespace TasksManager.Application.View
         public TaskOverviewView()
         {
             InitializeComponent();
-          //  DataContext = new TaskOverviewViewModel();
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
