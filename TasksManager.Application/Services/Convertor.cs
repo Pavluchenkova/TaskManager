@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using TasksManager.Model;
-using TaskModel = TasksManager.Application.Models.TaskModel;
+using TasksManager.Application.Models;
+using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Services
 {

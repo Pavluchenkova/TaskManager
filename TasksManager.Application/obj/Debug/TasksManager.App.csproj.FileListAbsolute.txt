@@ -77,7 +77,6 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\System.W
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\TasksManager.Infrastructure.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\TasksManager.Model.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\TasksManager.Infrastructure.pdb
-C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\TasksManager.Infrastructure.dll.config
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\TasksManager.Model.pdb
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\EntityFramework.xml
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\EntityFramework.SqlServer.xml
@@ -94,14 +93,12 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\ru\Syste
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\TasksManager.App.csprojResolveAssemblyReference.cache
-C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.g.cs
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskOverviewView.g.cs
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\App.g.cs
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\TasksManager.Application_MarkupCompile.cache
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\TasksManager.Application_MarkupCompile.lref
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\App.baml
-C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskDetailView.baml
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\View\TaskOverviewView.baml
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\TasksManager.Application.g.resources
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Application\obj\Debug\TasksManager.Application.Properties.Resources.resources

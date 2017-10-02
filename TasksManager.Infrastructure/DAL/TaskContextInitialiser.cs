@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
-using Task = TasksManager.Model.Task;
+using TasksManager.Model.Entities;
 
 namespace TasksManager.Infrastructure.DAL
 {
-    public class TaskContextInitialiser : DropCreateDatabaseAlways<TaskContext>
+    public class TaskContextInitialiser : CreateDatabaseIfNotExists<TaskContext>
     {
         protected override void Seed(TaskContext context)
         {
@@ -15,30 +15,30 @@ namespace TasksManager.Infrastructure.DAL
                    TaskId = Guid.NewGuid(),
                    Title ="Taxes",
                    Description ="Pay the taxes",
-                   Category = Model.TaskCategory.Finance,
+                   Category = TaskCategory.Finance,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.Done,
-                   Priority = Model.TaskPriority.Medium
+                   Status = TaskStatus.Done,
+                   Priority = TaskPriority.Medium
                },
                new Task ()
                {
                    TaskId = Guid.NewGuid(),
                    Title ="Code review",
                    Description ="Task manager app",
-                   Category = Model.TaskCategory.Finance,
+                   Category =  TaskCategory.Finance,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.ToDo,
-                   Priority = Model.TaskPriority.High
+                   Status = TaskStatus.ToDo,
+                   Priority =  TaskPriority.High
                },
                new Task()
                {
                    TaskId = Guid.NewGuid(),
                    Title ="EPM",
                    Description = "Send EPM",
-                   Category = Model.TaskCategory.Work,
+                   Category = TaskCategory.Work,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.InProgress,
-                   Priority =Model.TaskPriority.High
+                   Status = TaskStatus.InProgress,
+                   Priority = TaskPriority.High
 
                },
                new Task()
@@ -46,10 +46,10 @@ namespace TasksManager.Infrastructure.DAL
                    TaskId = Guid.NewGuid(),
                    Title ="MVVM",
                    Description = "Practice MVVM pattern",
-                   Category = Model.TaskCategory.Study,
+                   Category =  TaskCategory.Study,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.InProgress,
-                   Priority =Model.TaskPriority.High
+                   Status = TaskStatus.InProgress,
+                   Priority = TaskPriority.High
                }
             };
 

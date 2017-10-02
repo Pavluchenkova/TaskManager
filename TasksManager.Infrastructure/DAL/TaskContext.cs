@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using TasksManager.Model;
+﻿using System.Data.Entity;
+using TasksManager.Model.Entities;
 
 namespace TasksManager.Infrastructure.DAL
 {

@@ -1,7 +1,6 @@
 ﻿using System;
-using TasksManager.Model.Entities;
 
-namespace TasksManager.Model
+namespace TasksManager.Model.Entities
 {
     public class Task
     {

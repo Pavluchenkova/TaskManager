@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TasksManager.Model;
+using TasksManager.Model.Entities;
 
 namespace TasksManager.Infrastructure.Repositories
 {
@@ -11,7 +11,6 @@ namespace TasksManager.Infrastructure.Repositories
 
         public MockupRepository()
         {
-
         }
         public Task GetTask()
         {
@@ -35,14 +34,12 @@ namespace TasksManager.Infrastructure.Repositories
 
         public Task GetTaskById(Task task)
         {
-            //if (tasks == null)
-            //     LoadTasks();
             return tasks.Where(c => c.TaskId == task.TaskId).FirstOrDefault();
         }
 
-        public void Delete(Task task)
+        public void Delete(Guid id)
         {
-            Task taskToUpdate = tasks.Where(c => c.TaskId == task.TaskId).FirstOrDefault();
+            Task taskToUpdate = tasks.Where(c => c.TaskId == id).FirstOrDefault();
             tasks.Remove(taskToUpdate);
         }
 
@@ -58,6 +55,7 @@ namespace TasksManager.Infrastructure.Repositories
             taskToUpdate.Description = task.Description;
 
         }
+
         public void Add(Task entity)
         {
             tasks.Add(entity);
@@ -72,20 +70,20 @@ namespace TasksManager.Infrastructure.Repositories
                    TaskId = Guid.NewGuid(),
                    Title ="Taxes",
                    Description ="Pay the taxes",
-                   Category = Model.TaskCategory.Finance,
+                   Category =  TaskCategory.Finance,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.Done,
-                   Priority = Model.TaskPriority.Medium
+                   Status =  TaskStatus.Done,
+                   Priority =  TaskPriority.Medium
                },
                new Task()
                {
                    TaskId = Guid.NewGuid(),
                    Title ="EPM",
                    Description = "Send EPM",
-                   Category = Model.TaskCategory.Work,
+                   Category =  TaskCategory.Work,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.InProgress,
-                   Priority = Model.TaskPriority.High
+                   Status = TaskStatus.InProgress,
+                   Priority =  TaskPriority.High
 
                },
                new Task()
@@ -93,10 +91,10 @@ namespace TasksManager.Infrastructure.Repositories
                    TaskId = Guid.NewGuid(),
                    Title ="Code review",
                    Description = "new",
-                   Category = Model.TaskCategory.Work,
+                   Category =  TaskCategory.Work,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.ToDo,
-                   Priority = Model.TaskPriority.High
+                   Status = TaskStatus.ToDo,
+                   Priority =  TaskPriority.High
 
                },
                new Task()
@@ -104,15 +102,18 @@ namespace TasksManager.Infrastructure.Repositories
                    TaskId = Guid.NewGuid(),
                    Title ="MVVM",
                    Description = "Practice MVVM pattern",
-                   Category = Model.TaskCategory.Study,
+                   Category =  TaskCategory.Study,
                    CreationDate = new DateTime(2017,01,08),
-                   Status = Model.Entities.TaskStatus.InProgress,
-                   Priority = Model.TaskPriority.High
+                   Status = TaskStatus.InProgress,
+                   Priority =  TaskPriority.High
 
                }
             };
-
         }
 
+        public void Update(Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace TasksManager.Application.Services
 {
     public class TaskDataService : IDataServise<TaskModel>
     {
-        TaskRepository repository = new TaskRepository();          //Uncoment after finish
+        TaskRepository repository = new TaskRepository();          
         //MockupRepository repository = new MockupRepository();
         Convertor convertor = new Convertor();
 
@@ -30,18 +30,21 @@ namespace TasksManager.Application.Services
             var tasksInProgress = tasks.Where(e => e.Status == Model.Entities.TaskStatus.InProgress).ToList();
             return convertor.ConvertToTaskModel(tasksInProgress);
         }
+
         internal IEnumerable<TaskModel> GetAllToDo()
         {
             var tasks = repository.GetAll();
             var tasksToDo = tasks.Where(e => e.Status == Model.Entities.TaskStatus.ToDo).ToList();
             return convertor.ConvertToTaskModel(tasksToDo);
         }
+
         internal IEnumerable<TaskModel> GetAllDone()
         {
             var tasks = repository.GetAll();
             var tasksDone = tasks.Where(e => e.Status == Model.Entities.TaskStatus.Done).ToList();
             return convertor.ConvertToTaskModel(tasksDone);
         }
+
         internal TaskModel GetById(Guid id)
         {
             var task = repository.GetById(id);
@@ -55,6 +58,7 @@ namespace TasksManager.Application.Services
             var task = convertor.ConvertToTask(taskModel);
             repository.Add(task);
         }
+
         public void Update(TaskModel task)
         {
             var taskToUpdate = repository.GetById(task.TaskId);
@@ -69,5 +73,4 @@ namespace TasksManager.Application.Services
             repository.Update(taskToUpdate.TaskId);
         }
     }
-
 }

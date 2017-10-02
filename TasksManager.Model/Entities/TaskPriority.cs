@@ -1,4 +1,4 @@
-﻿namespace TasksManager.Model
+﻿namespace TasksManager.Model.Entities
 {
     public enum TaskPriority : int
     {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TasksManager.Infrastructure.DAL;
-using TasksManager.Model;
+using TasksManager.Model.Entities;
 using TasksManager.Model.Repositories;
 
-namespace TasksManager.Infrastructure.Repositories 
+
+namespace TasksManager.Infrastructure.Repositories
 {
     public class TaskRepository : IRepository<Task>
     {
@@ -21,8 +22,11 @@ namespace TasksManager.Infrastructure.Repositories
 
         public void Delete(Guid id)
         {
-            var entity = GetById(id); // TODO: Remove retrieve of entity before delete. Try to use Entry(entity).State
-           // DbContext.Tasks.Remove(entity);
+            var entity = GetById(id);
+            if (entity == null)
+            {
+                return;
+            }
             DbContext.Entry(entity).State = EntityState.Deleted;
             DbContext.SaveChanges();
         }
@@ -41,6 +45,10 @@ namespace TasksManager.Infrastructure.Repositories
         public void Update(Guid id)
         {
             var entity = GetById(id);
+            if (entity == null)
+            {
+                return;
+            }
             DbContext.Entry(entity).State = EntityState.Modified;
             DbContext.SaveChanges();
         }

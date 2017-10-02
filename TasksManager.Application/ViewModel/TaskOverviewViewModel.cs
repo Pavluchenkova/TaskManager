@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using TasksManager.Model;
 using TasksManager.Application.Extensions;
 using TasksManager.Application.Models;
 using System.Windows.Input;
@@ -38,9 +37,9 @@ namespace TasksManager.Application.ViewModel
         public ICommand EditTaskCommand { get; set; }
         public CustomCommand SaveTaskCommand { get; set; }
         public CustomCommand MakeDoneCommand { get; set; }
-        public CustomCommand ChooseInProgressCommand { get; set; }
-        public CustomCommand ChooseDoneCommand { get; set; }
-        public CustomCommand ChooseToDoCommand { get; set; }
+        public CustomCommand ChooseInProgressListCommand { get; set; }
+        public CustomCommand ChooseDoneListCommand { get; set; }
+        public CustomCommand ChooseToDoListCommand { get; set; }
         public CustomCommand CancelCommand { get; set; }
         public ObservableCollection<TaskModel> Tasks
         {
@@ -186,9 +185,9 @@ namespace TasksManager.Application.ViewModel
             EditTaskCommand = new CustomCommand(EditTask, CanEditTask);
             SaveTaskCommand = new CustomCommand(SaveTask, CanSaveTask);
             MakeDoneCommand = new CustomCommand(MakeDone, CanMakeDone);
-            ChooseInProgressCommand = new CustomCommand(ChooseInProgress, CanChooseInProgress);
-            ChooseDoneCommand = new CustomCommand(ChooseDone, CanChooseDone);
-            ChooseToDoCommand = new CustomCommand(ChooseToDo, CanChooseToDo);
+            ChooseInProgressListCommand = new CustomCommand(ChooseInProgress, CanChooseInProgress);
+            ChooseDoneListCommand = new CustomCommand(ChooseDone, CanChooseDone);
+            ChooseToDoListCommand = new CustomCommand(ChooseToDo, CanChooseToDo);
             CancelCommand = new CustomCommand(Cancel, CanCancel);
         }
 
@@ -276,7 +275,6 @@ namespace TasksManager.Application.ViewModel
 
         private void EditTask(object obj)
         {
-
             SelectedTask = obj as TaskModel; ;
 
             foreach (var task in Tasks)
