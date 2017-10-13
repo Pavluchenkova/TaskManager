@@ -187,11 +187,11 @@
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" 
                           Validation.ErrorTemplate="{StaticResource validationFailed}">
                     <TextBox.Text>
-                        <Binding Path="SelectedTask.Title"                                
+                        <Binding Path="NewTask.Title"
                                  UpdateSourceTrigger="PropertyChanged"
                                  NotifyOnValidationError="True">
                             <Binding.ValidationRules>
-                                <Extenders:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                <Extenders:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -242,17 +242,10 @@
                                   Mode="PrimaryMid"
                                   DockPanel.Dock="Top">
             <DockPanel>
-                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel>
-                        <Button Content="ToDo" Command="{Binding ChooseToDoListCommand}"/>
-                        <Button Content="InProcess" Command="{Binding ChooseInProgressListCommand}"/>
-                        <Button Content="Done" Command="{Binding ChooseDoneListCommand}"/>
-                    </StackPanel>
-                </materialDesign:PopupBox>
-                <TextBlock HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           Text="{Binding FilterName}"/>
+                <ComboBox Name="Filter" DockPanel.Dock="Right" FontSize="18"
+                          ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding FilterName}"      
+                          Margin="0 5 0 5" />
+
             </DockPanel>
         </materialDesign:ColorZone>
         
@@ -292,7 +285,7 @@
                 </ItemsControl.ItemTemplate>
             </ListView>
             <StackPanel x:Name="addTaskPanel"
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="0">
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
                         Margin="5"                        

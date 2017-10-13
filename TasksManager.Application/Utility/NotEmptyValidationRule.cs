@@ -11,7 +11,7 @@ namespace TasksManager.Application.Utility
             string strValue = Convert.ToString(value);
             if (string.IsNullOrEmpty(strValue))
             {
-                return new ValidationResult(false, $"Enter the title");
+                return new ValidationResult(false, "Enter the title");
             }
                return new ValidationResult(true, null);
         }

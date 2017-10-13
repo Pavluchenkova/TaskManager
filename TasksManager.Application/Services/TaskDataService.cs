@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TasksManager.Application.Models;
 using TasksManager.Infrastructure.Repositories;
-using TasksManager.Model.Repositories;
 
 namespace TasksManager.Application.Services
 {
-    public class TaskDataService : IDataServise<TaskModel>
+    public class TaskDataService 
     {
-        TaskRepository repository = new TaskRepository();          
-        //MockupRepository repository = new MockupRepository();
+        //TaskRepository repository = new TaskRepository();          
+        MockupRepository repository = new MockupRepository();
         Convertor convertor = new Convertor();
 
         public void Delete(TaskModel taskModel)
@@ -33,15 +32,14 @@ namespace TasksManager.Application.Services
 
         internal IEnumerable<TaskModel> GetAllToDo()
         {
-            var tasks = repository.GetAll();
-            var tasksToDo = tasks.Where(e => e.Status == Model.Entities.TaskStatus.ToDo).ToList();
-            return convertor.ConvertToTaskModel(tasksToDo);
+            var tasks = repository.GetAll().Where(e => e.Status == Model.Entities.TaskStatus.ToDo);
+            return convertor.ConvertToTaskModel(tasks);
         }
 
         internal IEnumerable<TaskModel> GetAllDone()
         {
             var tasks = repository.GetAll();
-            var tasksDone = tasks.Where(e => e.Status == Model.Entities.TaskStatus.Done).ToList();
+            var tasksDone = tasks.Where(e => e.Status == Model.Entities.TaskStatus.Done);
             return convertor.ConvertToTaskModel(tasksDone);
         }
 
@@ -70,7 +68,7 @@ namespace TasksManager.Application.Services
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;
 
-            repository.Update(taskToUpdate.TaskId);
+            repository.Update(taskToUpdate);
         }
     }
 }

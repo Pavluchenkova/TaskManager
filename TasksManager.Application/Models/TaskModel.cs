@@ -4,7 +4,7 @@ using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Models
 {
-    public class TaskModel : INotifyPropertyChanged, IDataErrorInfo
+    public class TaskModel : INotifyPropertyChanged
     {
         private Guid _taskId;
         private string _title;
@@ -22,19 +22,6 @@ namespace TasksManager.Application.Models
             IsModify = false;
         }
 
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = String.Empty;
-                if (String.IsNullOrEmpty(Title))
-                {
-                    error = "Enter the title";
-                }
-                return error;
-            }
-        }
-
         public Guid TaskId { get; set; }
         public DateTime CreationDate { get; set; }
 
@@ -44,8 +31,7 @@ namespace TasksManager.Application.Models
 
             set
             {
-                _title = value;
-                RaisePropertyChanged("Title");
+                SetValue(ref _title, value);
             }
         }
 
@@ -54,8 +40,8 @@ namespace TasksManager.Application.Models
             get { return _description; }
             set
             {
-                _description = value;
-                RaisePropertyChanged("Description");
+                SetValue(ref _description,value);
+
             }
         }
 
@@ -64,8 +50,7 @@ namespace TasksManager.Application.Models
             get { return _category; }
             set
             {
-                _category = value;
-                RaisePropertyChanged("Category");
+                SetValue(ref _category, value);
             }
         }
 
@@ -75,8 +60,7 @@ namespace TasksManager.Application.Models
 
             set
             {
-                _status = value;
-                RaisePropertyChanged("Status");
+                SetValue(ref _status, value);
             }
         }
 
@@ -85,8 +69,7 @@ namespace TasksManager.Application.Models
             get { return _priority; }
             set
             {
-                _priority = value;
-                RaisePropertyChanged("Priority");
+                SetValue(ref _priority, value);
             }
         }
 
@@ -96,8 +79,7 @@ namespace TasksManager.Application.Models
 
             set
             {
-                _isNew = value;
-                RaisePropertyChanged("IsNew");
+                SetValue(ref _isNew, value);
             }
         }
 
@@ -108,20 +90,17 @@ namespace TasksManager.Application.Models
 
             set
             {
-                _isModify = value;
-                RaisePropertyChanged("IsModify");
+                SetValue(ref _isModify, value);
             }
         }
 
-        string IDataErrorInfo.Error
+        private void SetValue<T>(ref T variable, T value, string propertyName = null)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            variable = value;
+            RaisePropertyChanged(propertyName);
         }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

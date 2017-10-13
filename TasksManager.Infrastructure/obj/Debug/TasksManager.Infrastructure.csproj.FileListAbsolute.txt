@@ -34,3 +34,15 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\bin\Debug\Entit
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.pdb
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.dll.config
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.dll
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Infrastructure.pdb
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.dll
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Model.dll
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\TasksManager.Model.pdb
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.xml
+E:\TaskManager\TasksManager.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+E:\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.csprojResolveAssemblyReference.cache
+E:\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.dll
+E:\TaskManager\TasksManager.Infrastructure\obj\Debug\TasksManager.Infrastructure.pdb

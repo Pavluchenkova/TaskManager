@@ -1,9 +1,9 @@
 ﻿namespace TasksManager.Model.Entities
 {
-    public enum TaskStatus : int
+    public enum TaskStatus
     {
-        ToDo = 0,
+        ToDo = 0,        
         InProgress = 1,
-        Done = 2
+        Done =2
     }
 }

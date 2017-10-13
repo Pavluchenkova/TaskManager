@@ -7,33 +7,27 @@ namespace TasksManager.Application.Services
 {
     public class Convertor
     {
-        public Convertor() { }
-        public TaskModel ConvertToTaskModel(Task task)
+        public TaskModel ConvertToTaskModel(Task entity)
         {
             TaskModel taskModel = new TaskModel();
-            taskModel.TaskId = task.TaskId;
-            taskModel.Title = task.Title;
-            taskModel.Status = task.Status;
-            taskModel.Priority = task.Priority;
-            taskModel.Category = task.Category;
-            taskModel.CreationDate = task.CreationDate;
-            taskModel.Description = task.Description;
+
+            taskModel.TaskId = entity.TaskId;
+            taskModel.Title = entity.Title;
+            taskModel.Status = entity.Status;
+            taskModel.Priority = entity.Priority;
+            taskModel.Category = entity.Category;
+            taskModel.CreationDate = entity.CreationDate;
+            taskModel.Description = entity.Description;
+
             return taskModel;
         }
+
         public IEnumerable<TaskModel> ConvertToTaskModel(IEnumerable<Task> tasks)
         {
-            var taskModels = tasks.Select(e => new TaskModel()
-            {
-                TaskId = e.TaskId,
-                Title = e.Title,
-                Status = e.Status,
-                Priority = e.Priority,
-                Category = e.Category,
-                CreationDate = e.CreationDate,
-                Description = e.Description,
-            }).ToList();
+            var taskModels = tasks.Select(e => ConvertToTaskModel(e));
             return taskModels;
         }
+
         public Task ConvertToTask(TaskModel taskModel)
         {
             var task = new Task();
@@ -45,6 +39,7 @@ namespace TasksManager.Application.Services
             task.Category = taskModel.Category;
             task.CreationDate = taskModel.CreationDate;
             task.Description = taskModel.Description;
+
             return task;
         }
     }

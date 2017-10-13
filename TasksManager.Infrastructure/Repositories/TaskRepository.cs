@@ -4,12 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using TasksManager.Infrastructure.DAL;
 using TasksManager.Model.Entities;
-using TasksManager.Model.Repositories;
 
 
 namespace TasksManager.Infrastructure.Repositories
 {
-    public class TaskRepository : IRepository<Task>
+    public class TaskRepository 
     {
         private readonly TaskContext _dbContext;
 
@@ -42,20 +41,16 @@ namespace TasksManager.Infrastructure.Repositories
             return DbContext.Tasks.FirstOrDefault(e => e.TaskId == id);
         }
 
-        public void Update(Guid id)
-        {
-            var entity = GetById(id);
-            if (entity == null)
-            {
-                return;
-            }
+        public void Update(Task entity)
+        {      
             DbContext.Entry(entity).State = EntityState.Modified;
             DbContext.SaveChanges();
         }
 
         public IEnumerable<Task> GetAll()
-        {
-            return DbContext.Tasks.ToList();
+        {        
+            
+            return DbContext.Tasks.ToList();           
         }
     }
 }

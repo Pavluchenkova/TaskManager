@@ -1,12 +1,12 @@
 ﻿namespace TasksManager.Model.Entities
 {
-    public enum TaskCategory : int
+    public enum TaskCategory
     {
         Personal = 0,
         Work = 1,
         Study = 2,
         Finance = 3,
         Idea = 4,
-        Sport = 5
+        Sport = 5 
     }
 }

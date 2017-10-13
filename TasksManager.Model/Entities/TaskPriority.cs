@@ -1,6 +1,6 @@
 ﻿namespace TasksManager.Model.Entities
 {
-    public enum TaskPriority : int
+    public enum TaskPriority 
     {
         High = 0,
         Medium = 1,

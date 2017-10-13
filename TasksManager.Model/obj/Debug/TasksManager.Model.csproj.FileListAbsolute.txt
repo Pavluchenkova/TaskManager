@@ -11,3 +11,10 @@ C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\bin\Debug\TasksManager.M
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\bin\Debug\TasksManager.Model.pdb
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.dll
 C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.pdb
+C:\Users\H188569\Desktop\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.csprojResolveAssemblyReference.cache
+C:\Users\Agnessa\Documents\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.csprojResolveAssemblyReference.cache
+E:\TaskManager\TasksManager.Model\bin\Debug\TasksManager.Model.dll
+E:\TaskManager\TasksManager.Model\bin\Debug\TasksManager.Model.pdb
+E:\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.csprojResolveAssemblyReference.cache
+E:\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.dll
+E:\TaskManager\TasksManager.Model\obj\Debug\TasksManager.Model.pdb
