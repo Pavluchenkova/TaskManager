@@ -26,7 +26,7 @@ namespace TasksManager.Application.Services
         internal IEnumerable<TaskModel> GetAllInProgress()
         {
             var tasks = repository.GetAll();
-            var tasksInProgress = tasks.Where(e => e.Status == Model.Entities.TaskStatus.InProgress).ToList();
+            var tasksInProgress = tasks.Where(e => e.Status == Model.Entities.TaskStatus.InProgress);
             return convertor.ConvertToTaskModel(tasksInProgress);
         }
 
