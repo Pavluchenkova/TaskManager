@@ -1,5 +1,0 @@
-C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Application\obj\Debug\TasksManager.Application.csprojResolveAssemblyReference.cache
-C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Application\obj\Debug\MainWindow.g.cs
-C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Application\obj\Debug\App.g.cs
-C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Application\obj\Debug\TasksManager.Application_MarkupCompile.cache
-C:\Users\H188569\documents\visual studio 2017\Projects\TasksManager\TasksManager.Application\obj\Debug\TasksManager.Application_MarkupCompile.lref
