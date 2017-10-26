@@ -11,7 +11,7 @@ namespace TasksManager.Application.Services
         {
             TaskModel taskModel = new TaskModel();
 
-            taskModel.TaskId = entity.TaskId;
+            taskModel.TaskId = entity.Id;
             taskModel.Title = entity.Title;
             taskModel.Status = entity.Status;
             taskModel.Priority = entity.Priority;
@@ -32,7 +32,7 @@ namespace TasksManager.Application.Services
         {
             var task = new Task();
 
-            task.TaskId = taskModel.TaskId;
+            task.Id = taskModel.TaskId;
             task.Title = taskModel.Title;
             task.Status = taskModel.Status;
             task.Priority = taskModel.Priority;

@@ -4,7 +4,7 @@ namespace TasksManager.Model.Entities
 {
     public class Task
     {
-        public Guid TaskId { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public TaskCategory Category { get; set; }

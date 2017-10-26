@@ -8,8 +8,8 @@ namespace TasksManager.Application.Services
 {
     public class TaskDataService 
     {
-        //TaskRepository repository = new TaskRepository();          
-        MockupRepository repository = new MockupRepository();
+        TaskRepository repository = new TaskRepository();        
+
         Convertor convertor = new Convertor();
 
         public void Delete(TaskModel taskModel)

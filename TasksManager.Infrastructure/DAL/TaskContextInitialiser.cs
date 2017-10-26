@@ -4,7 +4,7 @@ using TasksManager.Model.Entities;
 
 namespace TasksManager.Infrastructure.DAL
 {
-    public class TaskContextInitialiser : CreateDatabaseIfNotExists<TaskContext>
+    public class TaskContextInitialiser : DropCreateDatabaseAlways<TaskContext>
     {
         protected override void Seed(TaskContext context)
         {
@@ -12,7 +12,7 @@ namespace TasksManager.Infrastructure.DAL
             {
                new Task ()
                {
-                   TaskId = Guid.NewGuid(),
+                   Id = Guid.NewGuid(),
                    Title ="Taxes",
                    Description ="Pay the taxes",
                    Category = TaskCategory.Finance,
@@ -22,7 +22,7 @@ namespace TasksManager.Infrastructure.DAL
                },
                new Task ()
                {
-                   TaskId = Guid.NewGuid(),
+                   Id = Guid.NewGuid(),
                    Title ="Code review",
                    Description ="Task manager app",
                    Category =  TaskCategory.Finance,
@@ -32,7 +32,7 @@ namespace TasksManager.Infrastructure.DAL
                },
                new Task()
                {
-                   TaskId = Guid.NewGuid(),
+                   Id = Guid.NewGuid(),
                    Title ="EPM",
                    Description = "Send EPM",
                    Category = TaskCategory.Work,
@@ -43,7 +43,7 @@ namespace TasksManager.Infrastructure.DAL
                },
                new Task()
                {
-                   TaskId = Guid.NewGuid(),
+                   Id = Guid.NewGuid(),
                    Title ="MVVM",
                    Description = "Practice MVVM pattern",
                    Category =  TaskCategory.Study,

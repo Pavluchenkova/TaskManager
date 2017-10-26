@@ -31,7 +31,8 @@
                                   Mode="PrimaryMid"
                                   DockPanel.Dock="Top">
             <DockPanel>
-                <ComboBox Name="Filter" DockPanel.Dock="Right" FontSize="18"                           
+                <ComboBox Name="Filter" DockPanel.Dock="Right" FontSize="18"  
+                          Style="{StaticResource ComboBoxFilterStyle}"
                           ItemsSource="{Binding TaskStatuses}" SelectedItem="{Binding FilterName}"      
                           Margin="0 5 0 5" />
             </DockPanel>

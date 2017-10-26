@@ -38,7 +38,7 @@ namespace TasksManager.Infrastructure.Repositories
 
         public Task GetById(Guid id)
         {
-            return DbContext.Tasks.FirstOrDefault(e => e.TaskId == id);
+            return DbContext.Tasks.FirstOrDefault(e => e.Id == id);
         }
 
         public void Update(Task entity)
