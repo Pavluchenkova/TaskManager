@@ -46,7 +46,7 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(Tasks));
             }
         }
-        
+
         public ObservableCollection<TaskModel> TasksInProgress
         {
             get { return _tasksInProgress; }
@@ -166,7 +166,7 @@ namespace TasksManager.Application.ViewModel
             MakeDoneCommand = new RelayCommand(MakeDone, CanMakeDone);
             CancelCommand = new RelayCommand(Cancel, CanCancel);
         }
-        
+
         private bool CanCancel(object obj)
         {
             return true;
@@ -199,7 +199,7 @@ namespace TasksManager.Application.ViewModel
             task.Status = TaskStatus.Done;
             _taskDataService.Update(task);
 
-            TasksDone.Add(task);
+            TasksDone.Insert(0,task);
             TasksInProgress.Remove(task);
             Tasks.Remove(task);
         }
@@ -208,7 +208,7 @@ namespace TasksManager.Application.ViewModel
         {
             NewTask = new TaskModel();
             NewTask.IsNew = true;
-            Tasks.Add(NewTask);
+            Tasks.Insert(0, NewTask);
         }
 
         private bool CanAddTask(object obj)
@@ -224,7 +224,7 @@ namespace TasksManager.Application.ViewModel
         private void EditTask(object obj)
         {
             SelectedTask = obj as TaskModel; ;
-              
+
             foreach (var task in Tasks)
             {
                 if (task.IsModify == true)
@@ -260,15 +260,15 @@ namespace TasksManager.Application.ViewModel
             Tasks.RemoveAt(ind);
             if (task.Status == TaskStatus.ToDo)
             {
-                TasksToDo.Add(task);
+                TasksToDo.Insert(0, task);
             }
             else if (task.Status == TaskStatus.InProgress)
             {
-                TasksInProgress.Add(task);
+                TasksInProgress.Insert(0, task); ;
             }
             else
             {
-                TasksDone.Add(task);
+                TasksDone.Insert(0, task); ;
             }
         }
         private bool CanSaveTask(object obj)
