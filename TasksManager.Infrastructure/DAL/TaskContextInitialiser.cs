@@ -4,7 +4,7 @@ using TasksManager.Model.Entities;
 
 namespace TasksManager.Infrastructure.DAL
 {
-    public class TaskContextInitialiser : DropCreateDatabaseAlways<TaskContext>
+    public class TaskContextInitialiser : CreateDatabaseIfNotExists<TaskContext>
     {
         protected override void Seed(TaskContext context)
         {

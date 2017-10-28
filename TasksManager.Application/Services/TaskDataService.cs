@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TasksManager.Application.Models;
+using TasksManager.Application.Utility;
 using TasksManager.Infrastructure.Repositories;
 
 namespace TasksManager.Application.Services
@@ -10,7 +11,7 @@ namespace TasksManager.Application.Services
     {
         TaskRepository repository = new TaskRepository();        
 
-        Convertor convertor = new Convertor();
+        Converter convertor = new Converter();
 
         public void Delete(TaskModel taskModel)
         {

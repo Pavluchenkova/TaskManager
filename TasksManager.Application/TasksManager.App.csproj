@@ -37,7 +37,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Graphicloads-100-Flat-2-Check-1.ico</ApplicationIcon>
+    <ApplicationIcon>favicon-96x96 %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -76,7 +76,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\TaskModel.cs" />
-    <Compile Include="Services\Convertor.cs" />
+    <Compile Include="Utility\Converter.cs" />
+    <Compile Include="Utility\PriorityConverter.cs" />
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="Utility\NotEmptyValidationRule.cs" />
@@ -136,13 +137,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Check.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphicloads-100-Flat-Check.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Graphicloads-100-Flat-2-Check-1.ico" />
+    <Resource Include="favicon-96x96 %281%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

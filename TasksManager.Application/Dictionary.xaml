@@ -221,15 +221,20 @@
 
     </ControlTemplate>
 
+    <Extenders:PriorityConverter x:Key="converter" />
+    
     <DataTemplate x:Key="TaskDataTemplate">
         <Border BorderThickness="0">
             <DockPanel HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>
+
+                <materialDesign:PackIcon Kind="flag" Foreground="{Binding Priority, Converter={StaticResource converter}}" Height="20" Width="20" VerticalAlignment="Center"/>
+                <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button HorizontalAlignment="Right" Style="{StaticResource DoneButton}" ToolTip="Done" Command="{Binding MakeDoneCommand}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"                                
                                 DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}, Mode=TwoWay}">
-                        <materialDesign:PackIcon Kind="Check"  Height="24" Width="24" />
+                        <materialDesign:PackIcon Kind="Check" Height="24" Width="24" />
                     </Button>
                     <Button HorizontalAlignment="Right" Style="{StaticResource ShowHideButton}" ToolTip="Edit" Command="{Binding EditTaskCommand}" 
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}" 
@@ -363,7 +368,7 @@
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"
                         DockPanel.Dock="Right"                      
-                        ToolTip="Save new"                        
+                        ToolTip="Save"                        
                         IsEnabled="{Binding ElementName=TitleTextBox, Path=Text.Length}">
                     <materialDesign:PackIcon Kind="Check"/>
                 </Button>
