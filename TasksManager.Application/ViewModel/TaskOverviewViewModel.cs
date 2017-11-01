@@ -182,9 +182,10 @@ namespace TasksManager.Application.ViewModel
             }
             if (task.IsModify == true)
             {
+                var ind = Tasks.IndexOf(task);
                 Tasks.Remove(task);
                 task = _taskDataService.GetById(task.TaskId);
-                Tasks.Add(task);
+                Tasks.Insert(ind,task);
             }
         }
 
@@ -264,12 +265,12 @@ namespace TasksManager.Application.ViewModel
             }
             else if (task.Status == TaskStatus.InProgress)
             {
-                TasksInProgress.Insert(0, task); ;
+                TasksInProgress.Insert(0, task);
             }
             else
             {
-                TasksDone.Insert(0, task); ;
-            }
+                TasksDone.Insert(0, task);
+            }           
         }
         private bool CanSaveTask(object obj)
         {
