@@ -6,6 +6,7 @@
         xmlns:viewmodel="clr-namespace:TasksManager.Application.ViewModel"
         xmlns:Extenders="clr-namespace:TasksManager.Application.Utility"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:DragDrop="clr-namespace:TasksManager.Application.DragDrop"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -52,6 +53,10 @@
                       HorizontalContentAlignment="Stretch"                      
                       ItemsSource="{Binding Tasks}"                      
                       SelectedItem="{Binding SelectedTask}"
+                      DragDrop:DragDropHelper.IsDropTarget="True"
+                      DragDrop:DragDropHelper.IsDragSource="True"
+                      DragDrop:DragDropHelper.DragDropTemplate="{StaticResource DragTemplate}"
+                      
                       ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

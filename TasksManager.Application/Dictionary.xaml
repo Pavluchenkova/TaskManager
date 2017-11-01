@@ -4,6 +4,10 @@
                     xmlns:viewmodel="clr-namespace:TasksManager.Application.ViewModel"
                     xmlns:Extenders="clr-namespace:TasksManager.Application.Utility"
                     xmlns:local="clr-namespace:TasksManager.Application">
+    
+    <DataTemplate x:Key="DragTemplate">        
+            <TextBlock Text="{Binding Path=Title}" Margin="2" TextAlignment="Center" FontWeight="Bold"  FontSize="16"/>          
+    </DataTemplate>
 
     <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="Margin" Value="0"/>
