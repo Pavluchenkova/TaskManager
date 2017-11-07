@@ -198,6 +198,7 @@ namespace TasksManager.Application.ViewModel
         {
             var task = obj as TaskModel;
             task.Status = TaskStatus.Done;
+            task.FinishDate = DateTime.Now;
             _taskDataService.Update(task);
 
             TasksDone.Insert(0,task);
@@ -269,6 +270,7 @@ namespace TasksManager.Application.ViewModel
             }
             else
             {
+                task.FinishDate = DateTime.Now;
                 TasksDone.Insert(0, task);
             }           
         }

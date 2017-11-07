@@ -219,8 +219,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-
+   
     <ControlTemplate x:Key="validationFailed">
 
     </ControlTemplate>
@@ -232,9 +231,10 @@
             <DockPanel HorizontalAlignment="Stretch">
 
                 <materialDesign:PackIcon Kind="flag" Foreground="{Binding Priority, Converter={StaticResource converter}}" Height="20" Width="20" VerticalAlignment="Center"/>
-                <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>                
-
+                <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding FinishDate, StringFormat=d}" FontSize="16"></TextBlock>
                     <Button HorizontalAlignment="Right" Style="{StaticResource DoneButton}" ToolTip="Done" Command="{Binding MakeDoneCommand}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=DataContext}"                                
                                 DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}, Mode=TwoWay}">

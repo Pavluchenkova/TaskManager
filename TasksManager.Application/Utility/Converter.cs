@@ -17,7 +17,8 @@ namespace TasksManager.Application.Utility
             taskModel.Priority = entity.Priority;
             taskModel.Category = entity.Category;
             taskModel.CreationDate = entity.CreationDate;
-            taskModel.Description = entity.Description;
+            taskModel.FinishDate = entity.FinishDate;
+            taskModel.Description = entity.Description;            
 
             return taskModel;
         }
@@ -38,6 +39,7 @@ namespace TasksManager.Application.Utility
             task.Priority = taskModel.Priority;
             task.Category = taskModel.Category;
             task.CreationDate = taskModel.CreationDate;
+            taskModel.FinishDate = taskModel.FinishDate;
             task.Description = taskModel.Description;
 
             return task;

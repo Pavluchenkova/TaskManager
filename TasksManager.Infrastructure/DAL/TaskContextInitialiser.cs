@@ -17,6 +17,7 @@ namespace TasksManager.Infrastructure.DAL
                    Description ="Pay the taxes",
                    Category = TaskCategory.Finance,
                    CreationDate = new DateTime(2017,01,08),
+                   FinishDate = DateTime.Now,
                    Status = TaskStatus.Done,
                    Priority = TaskPriority.Medium
                },

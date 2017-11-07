@@ -14,6 +14,7 @@ namespace TasksManager.Application.Models
         private TaskStatus _status;
         private TaskCategory _category;
         private TaskPriority _priority;
+        private DateTime? _finishDate;
 
         public TaskModel()
         {
@@ -32,6 +33,15 @@ namespace TasksManager.Application.Models
             set
             {
                 SetValue(ref _title, value);
+            }
+        }
+        public DateTime? FinishDate 
+        {
+            get { return _finishDate; }
+
+            set
+            {
+                SetValue(ref _finishDate, value);
             }
         }
 
