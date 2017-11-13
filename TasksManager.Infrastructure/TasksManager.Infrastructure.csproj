@@ -47,8 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\MigrationsConfiguration.cs" />
     <Compile Include="DAL\TaskContext.cs" />
-    <Compile Include="DAL\TaskContextInitialiser.cs" />
+    <Compile Include="Migrations\201711132046185_Initial.cs" />
+    <Compile Include="Migrations\201711132046185_Initial.Designer.cs">
+      <DependentUpon>201711132046185_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
   </ItemGroup>
@@ -63,6 +67,11 @@
       <Project>{8D0C4686-5E69-47F4-8631-66AE282DAAD2}</Project>
       <Name>TasksManager.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711132046185_Initial.resx">
+      <DependentUpon>201711132046185_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

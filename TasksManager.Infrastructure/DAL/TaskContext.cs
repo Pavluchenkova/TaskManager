@@ -7,7 +7,7 @@ namespace TasksManager.Infrastructure.DAL
     {
         static TaskContext()
         {
-            Database.SetInitializer<TaskContext>(new TaskContextInitialiser());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<TaskContext>());
         }
 
         public TaskContext()
