@@ -132,22 +132,6 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        public IEnumerable<TaskCategory> TaskCategories
-        {
-            get
-            {
-                return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
-            }
-        }
-
-        public IEnumerable<TaskCategory> SelectTaskCategory
-        {
-            get
-            {
-                return Enum.GetValues(typeof(TaskCategory)).Cast<TaskCategory>();
-            }
-        }
-
         public RelayCommand ClearTextCommand { get; private set; }
 
         public TaskOverviewViewModel()

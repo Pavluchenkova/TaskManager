@@ -1,12 +1,10 @@
-﻿namespace TasksManager.Model.Entities
+﻿using System;
+
+namespace TasksManager.Model.Entities
 {
-    public enum TaskCategory
+    public class TaskCategory
     {
-        Personal = 0,
-        Work = 1,
-        Study = 2,
-        Finance = 3,
-        Idea = 4,
-        Sport = 5 
+        public Guid Id { get; set; }
+        public string Category { get; set; }
     }
 }
