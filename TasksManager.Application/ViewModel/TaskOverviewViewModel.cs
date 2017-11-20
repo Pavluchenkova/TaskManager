@@ -130,7 +130,8 @@ namespace TasksManager.Application.ViewModel
             {
                 return Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>();
             }
-        }
+        } 
+
 
         public RelayCommand ClearTextCommand { get; private set; }
 

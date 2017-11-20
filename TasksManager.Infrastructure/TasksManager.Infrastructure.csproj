@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201711200858040_AddTaskCategoryTable.Designer.cs">
       <DependentUpon>201711200858040_AddTaskCategoryTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711201009135_AddTaskCategoryTable1.cs" />
+    <Compile Include="Migrations\201711201009135_AddTaskCategoryTable1.Designer.cs">
+      <DependentUpon>201711201009135_AddTaskCategoryTable1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
   </ItemGroup>
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711200858040_AddTaskCategoryTable.resx">
       <DependentUpon>201711200858040_AddTaskCategoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711201009135_AddTaskCategoryTable1.resx">
+      <DependentUpon>201711201009135_AddTaskCategoryTable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

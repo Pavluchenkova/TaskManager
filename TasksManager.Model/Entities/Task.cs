@@ -12,7 +12,7 @@ namespace TasksManager.Model.Entities
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
 
-        public Guid? CategoryId { get; set; }
-        public TaskCategory Category { get; set; }
+        public Guid? TaskCategoryId { get; set; }
+        public TaskCategory TaskCategory { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace TasksManager.Application.Services
             taskToUpdate.Title = task.Title;
             taskToUpdate.Status = task.Status;
             taskToUpdate.Priority = task.Priority;
-            taskToUpdate.Category = task.Category;
+            //taskToUpdate.Category = task.Category;
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;
 
