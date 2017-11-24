@@ -130,8 +130,9 @@ namespace TasksManager.Application.ViewModel
         }
 
         private Category _taskCategorySelectedItem;
-        private string _newTaskCategory;
+
         private DialogService dialogService = new DialogService();
+        private string _newTaskCategory;
 
         public Category TaskCategorySelectedItem
         {
