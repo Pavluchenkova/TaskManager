@@ -78,9 +78,16 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListView>
-            <StackPanel x:Name="addTaskPanel"
+            <DockPanel x:Name="addTaskPanel"
                 Grid.Row="1"
                 Grid.Column="0">
+                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
+                        Margin="5"                        
+                        HorizontalAlignment="Right" 
+                        ToolTip="Add category"
+                        Command="{Binding AddCategoryCommand}" >
+                    <materialDesign:PackIcon Kind="Cat"  Height="24" Width="24" />
+                </Button>
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
                         Margin="5"                        
                         HorizontalAlignment="Right" 
@@ -88,7 +95,7 @@
                         Command="{Binding AddTaskCommand}" >
                     <materialDesign:PackIcon Kind="Plus"  Height="24" Width="24" />
                 </Button>
-            </StackPanel>
+            </DockPanel>
         </Grid>
     </DockPanel>
 </Window>

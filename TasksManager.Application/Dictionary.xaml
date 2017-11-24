@@ -4,9 +4,9 @@
                     xmlns:viewmodel="clr-namespace:TasksManager.Application.ViewModel"
                     xmlns:Extenders="clr-namespace:TasksManager.Application.Utility"
                     xmlns:local="clr-namespace:TasksManager.Application">
-    
-    <DataTemplate x:Key="DragTemplate">        
-            <TextBlock Text="{Binding Path=Title}" Margin="2" TextAlignment="Center" FontWeight="Bold"  FontSize="16"/>          
+
+    <DataTemplate x:Key="DragTemplate">
+        <TextBlock Text="{Binding Path=Title}" Margin="2" TextAlignment="Center" FontWeight="Bold"  FontSize="16"/>
     </DataTemplate>
 
     <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
@@ -290,9 +290,13 @@
             <ComboBox Grid.Row="2" materialDesign:HintAssist.Hint="Priority" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding NewTask.Priority}" 
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
+            
             <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding NewTask.Category}" 
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
+                          ItemsSource="{Binding TaskCategories, Mode=TwoWay}" DisplayMemberPath="CategoryName" SelectedItem="{Binding TaskCategorySelectedItem}" 
+                          IsReadOnly="False" IsEditable="True" Text="{Binding Path=NewTask.TaskCategory.CategoryName, UpdateSourceTrigger=PropertyChanged}"
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" 
+                         />
+            
             <TextBox  Grid.Row="4" Text="{Binding NewTask.Description, Mode=TwoWay}" materialDesign:HintAssist.Hint="Notes" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 0"></TextBox>
             <DockPanel Grid.Row="5" HorizontalAlignment="Right" >
@@ -358,9 +362,12 @@
             <ComboBox Grid.Row="2" materialDesign:HintAssist.Hint="Priority" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                           ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding SelectedTask.Priority}" 
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
-            <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding TaskCategories}" SelectedItem="{Binding SelectedTask.Category}" 
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
+
+                        <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding TaskCategories, Mode=TwoWay}" DisplayMemberPath="CategoryName" SelectedItem="{Binding SelectedTask.TaskCategory}" 
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" 
+                          IsReadOnly="False" IsEditable="True" Text="{Binding Path=JobNewItem, UpdateSourceTrigger=PropertyChanged}"/>
+            
             <TextBox  Grid.Row="4" Text="{Binding SelectedTask.Description, Mode=TwoWay}" materialDesign:HintAssist.Hint="Notes" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 0"></TextBox>
 

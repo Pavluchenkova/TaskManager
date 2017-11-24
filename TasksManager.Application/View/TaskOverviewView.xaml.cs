@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TasksManager.Application.ViewModel;
 
 namespace TasksManager.Application.View
 {
@@ -6,7 +7,7 @@ namespace TasksManager.Application.View
     {
         public TaskOverviewView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

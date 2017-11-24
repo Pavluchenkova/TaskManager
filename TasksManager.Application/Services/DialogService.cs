@@ -10,18 +10,18 @@ namespace TasksManager.Application.Services
 {
     public class DialogService
     {
-        Window taskDetailView = null;
+        Window CategoryView = null;
 
         public void ShowDialog()
         {
-            taskDetailView = new TaskDetailView();
-            taskDetailView.ShowDialog();
+            CategoryView = new CategoryView();
+            CategoryView.ShowDialog();
         }
         public void CloseDialog()
         {
-            if (taskDetailView != null)
+            if (CategoryView != null)
             {
-                taskDetailView.Close();
+                CategoryView.Close();
             }
         }
     }

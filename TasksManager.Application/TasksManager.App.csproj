@@ -79,13 +79,21 @@
     <Compile Include="DragDrop\DraggedAdorner.cs" />
     <Compile Include="DragDrop\InsertionAdorner.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Utility\Converter.cs" />
+    <Compile Include="Utility\Messanger.cs" />
     <Compile Include="Utility\PriorityConverter.cs" />
     <Compile Include="Services\TaskDataService.cs" />
     <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="Utility\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="ViewModel\CategoryViewModel.cs" />
     <Compile Include="ViewModel\TaskOverviewViewModel.cs" />
+    <Compile Include="ViewModel\UpdateListMessage.cs" />
+    <Compile Include="View\CategoryView.xaml.cs">
+      <DependentUpon>CategoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TaskOverviewView.xaml.cs">
       <DependentUpon>TaskOverviewView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +102,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CategoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

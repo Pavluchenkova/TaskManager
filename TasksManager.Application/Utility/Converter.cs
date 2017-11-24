@@ -15,10 +15,10 @@ namespace TasksManager.Application.Utility
             taskModel.Title = entity.Title;
             taskModel.Status = entity.Status;
             taskModel.Priority = entity.Priority;
-           // taskModel.Category = entity.Category;
             taskModel.CreationDate = entity.CreationDate;
             taskModel.FinishDate = entity.FinishDate;
-            taskModel.Description = entity.Description;            
+            taskModel.Description = entity.Description;
+            taskModel.CategoryId = entity.CategoryId;
 
             return taskModel;
         }
@@ -37,11 +37,11 @@ namespace TasksManager.Application.Utility
             task.Title = taskModel.Title;
             task.Status = taskModel.Status;
             task.Priority = taskModel.Priority;
-           // task.Category = taskModel.Category;
             task.CreationDate = taskModel.CreationDate;
             taskModel.FinishDate = taskModel.FinishDate;
             task.Description = taskModel.Description;
-
+            task.CategoryId = taskModel.CategoryId;
+            
             return task;
         }
     }

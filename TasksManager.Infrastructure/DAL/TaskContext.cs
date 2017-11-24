@@ -15,5 +15,6 @@ namespace TasksManager.Infrastructure.DAL
         { }
 
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<Category> TaskCategories { get; set; }
     }
 }

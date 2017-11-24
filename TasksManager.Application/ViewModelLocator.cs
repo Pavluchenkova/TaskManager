@@ -11,6 +11,8 @@ namespace TasksManager.Application
     {
         private static TaskOverviewViewModel taskOverviewViewModel =
             new TaskOverviewViewModel();
+        private static CategoryViewModel categoryViewModel =
+            new CategoryViewModel();
         public static TaskOverviewViewModel TaskOverviewViewModel
         {
             get
@@ -18,5 +20,13 @@ namespace TasksManager.Application
                 return taskOverviewViewModel;
             }
         }
+        public static CategoryViewModel CategoryViewModel
+        {
+            get
+            {
+                return categoryViewModel;
+            }
+        }
+
     }
 }

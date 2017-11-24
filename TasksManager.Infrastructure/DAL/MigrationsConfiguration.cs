@@ -6,7 +6,7 @@ namespace TasksManager.Infrastructure.DAL
     {
         public MigrationsConfiguration()
         {
-            AutomaticMigrationsEnabled = true;
+            
         }
     }
 }

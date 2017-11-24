@@ -7,13 +7,13 @@ namespace TasksManager.Infrastructure.DAL
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddTaskCategoryTable : IMigrationMetadata
+    public sealed partial class AddCategories : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTaskCategoryTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCategories));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711200858040_AddTaskCategoryTable"; }
+            get { return "201711212241012_AddCategories"; }
         }
         
         string IMigrationMetadata.Source

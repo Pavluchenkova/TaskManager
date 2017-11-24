@@ -106,7 +106,10 @@ namespace TasksManager.Application.Utility
         {
             Send(message, null);
         }
-
+        public void Send<T>(IEnumerable<T> message)
+        {
+            Send(message, null);
+        }
         /// <summary>
         /// Sends a message to registered recipients. The message will reach all recipients that are
         /// registered for this message type and matching context.

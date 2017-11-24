@@ -22,7 +22,10 @@ namespace TasksManager.Application.ViewModel
         private ObservableCollection<TaskModel> _tasksInProgress;
         private ObservableCollection<TaskModel> _tasksDone;
         private ObservableCollection<TaskModel> _tasksToDo;
+        private ObservableCollection<Category> _taskCategories;
         private TaskStatus _filterName;
+        private IEnumerable<Category> _categories;
+        private CategoryService _CategoryService;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
@@ -31,6 +34,7 @@ namespace TasksManager.Application.ViewModel
         public ICommand SaveTaskCommand { get; set; }
         public ICommand MakeDoneCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand AddCategoryCommand { get; set; }
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -115,6 +119,58 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(NewTask));
             }
         }
+        public ObservableCollection<Category> Categories
+        {
+            get { return _taskCategories; }
+            set
+            {
+                _taskCategories = value;
+                RaisePropertyChanged(nameof(Categories));
+            }
+        }
+
+        private Category _taskCategorySelectedItem;
+        private string _newTaskCategory;
+        private DialogService dialogService = new DialogService();
+
+        public Category TaskCategorySelectedItem
+        {
+            get { return _taskCategorySelectedItem; }
+
+            set
+            {
+                _taskCategorySelectedItem = value;
+
+                RaisePropertyChanged(nameof(TaskCategorySelectedItem));
+            }
+        }
+
+        public string NewTaskCategory
+        {
+
+            get { return _newTaskCategory; }
+
+            set
+            {
+                //if (value != null)
+                //{
+                //    _newTaskCategory = value;
+                //    RaisePropertyChanged(nameof(NewTaskCategory));                    
+
+                //    var newCategory = new TaskCategory
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        CategoryName = value
+                //    };
+                    
+                //    _taskCategoryService.Add(newCategory);
+
+                //    TaskCategories.Add(newCategory);
+
+                //    TaskCategorySelectedItem = newCategory;
+                //}
+            }
+        }
 
         public IEnumerable<TaskStatus> TaskStatuses
         {
@@ -130,16 +186,19 @@ namespace TasksManager.Application.ViewModel
             {
                 return Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>();
             }
-        } 
-
+        }
 
         public RelayCommand ClearTextCommand { get; private set; }
 
         public TaskOverviewViewModel()
         {
             _taskDataService = new TaskDataService();
+            _CategoryService = new CategoryService();
+
             LoadData();
             LoadCommands();
+
+            Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
         }
 
         private void LoadCommands()
@@ -150,6 +209,24 @@ namespace TasksManager.Application.ViewModel
             SaveTaskCommand = new RelayCommand(SaveTask, CanSaveTask);
             MakeDoneCommand = new RelayCommand(MakeDone, CanMakeDone);
             CancelCommand = new RelayCommand(Cancel, CanCancel);
+            AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
+        }
+        private void OnUpdateListMessageReceived(UpdateListMessage obj)
+        {
+            LoadData();
+            dialogService.CloseDialog();
+        }
+
+        private void AddCategory(object obj)
+        {
+            Messenger.Default.Send<Category>(Categories);
+
+            dialogService.ShowDialog();
+        }
+
+        private bool CanAddCategory(object obj)
+        {
+            return true;
         }
 
         private bool CanCancel(object obj)
@@ -232,13 +309,17 @@ namespace TasksManager.Application.ViewModel
 
             if (task.IsNew == true)
             {
-                _taskDataService.Add(task);
+                task.CategoryId = TaskCategorySelectedItem.Id;
+                task.Category = TaskCategorySelectedItem;
+                _taskDataService.Add(task); 
                 task.IsNew = false;
                 NewTask = null;
             }
             else
             {
+                task.Category = TaskCategorySelectedItem;
                 _taskDataService.Update(task);
+                _CategoryService.Update(task.Category);
                 task.IsModify = false;
             }
 
@@ -283,8 +364,11 @@ namespace TasksManager.Application.ViewModel
         {
             TasksInProgress = new ObservableCollection<TaskModel>(_taskDataService.GetAllInProgress());
             TasksDone = new ObservableCollection<TaskModel>(_taskDataService.GetAllDone());
-            TasksToDo = new ObservableCollection<TaskModel>(_taskDataService.GetAllToDo());
+            TasksToDo = new ObservableCollection<TaskModel>(_taskDataService.GetAllToDo());            
             Tasks = TasksToDo;
+
+            Categories = new ObservableCollection<Category>(_CategoryService.GetAll());
+
         }
     }
 }
