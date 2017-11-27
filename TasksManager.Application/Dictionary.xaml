@@ -292,7 +292,7 @@
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
             
             <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding TaskCategories, Mode=TwoWay}" DisplayMemberPath="CategoryName" SelectedItem="{Binding TaskCategorySelectedItem}" 
+                          ItemsSource="{Binding Categories, Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory}" 
                           IsReadOnly="False" IsEditable="True" Text="{Binding Path=NewTask.TaskCategory.CategoryName, UpdateSourceTrigger=PropertyChanged}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" 
                          />
@@ -363,11 +363,11 @@
                           ItemsSource="{Binding TaskPriorities}" SelectedItem="{Binding SelectedTask.Priority}" 
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
 
-                        <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding TaskCategories, Mode=TwoWay}" DisplayMemberPath="CategoryName" SelectedItem="{Binding SelectedTask.TaskCategory}" 
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" 
-                          IsReadOnly="False" IsEditable="True" Text="{Binding Path=JobNewItem, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding Categories, Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory}"                      
+                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
             
+
             <TextBox  Grid.Row="4" Text="{Binding SelectedTask.Description, Mode=TwoWay}" materialDesign:HintAssist.Hint="Notes" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 0"></TextBox>
 

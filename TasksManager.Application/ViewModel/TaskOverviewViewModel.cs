@@ -17,15 +17,17 @@ namespace TasksManager.Application.ViewModel
 
         private TaskModel _newTask;
         private TaskModel _selectedTask;
+        private TaskStatus _filterName;
         private TaskDataService _taskDataService;
+        private CategoryService _categoryService;
+        private DialogService _dialogService = new DialogService();
         private ObservableCollection<TaskModel> _tasks;
         private ObservableCollection<TaskModel> _tasksInProgress;
         private ObservableCollection<TaskModel> _tasksDone;
         private ObservableCollection<TaskModel> _tasksToDo;
-        private ObservableCollection<Category> _taskCategories;
-        private TaskStatus _filterName;
-        private IEnumerable<Category> _categories;
-        private CategoryService _CategoryService;
+        private ObservableCollection<Category> _categories;
+        private Category _selectedCategory;
+        private Category _newCategory;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
@@ -79,6 +81,15 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(TasksToDo));
             }
         }
+        public ObservableCollection<Category> Categories
+        {
+            get { return _categories; }
+            set
+            {
+                _categories = value;
+                RaisePropertyChanged(nameof(Categories));
+            }
+        }
         public TaskModel SelectedTask
         {
             get { return _selectedTask; }
@@ -88,6 +99,38 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(SelectedTask));
             }
         }
+        public TaskModel NewTask
+        {
+            get { return _newTask; }
+            set
+            {
+                _newTask = value;
+                RaisePropertyChanged(nameof(NewTask));
+            }
+        }
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+
+            set
+            {
+                _selectedCategory = value;
+
+                RaisePropertyChanged(nameof(SelectedCategory));
+            }
+        }
+        
+        public Category NewCategory
+        {
+            get { return _newCategory; }
+
+            set
+            {
+                _newCategory = value;
+                RaisePropertyChanged(nameof(NewCategory));
+            }
+        }
+
         public TaskStatus FilterName
         {
             get { return _filterName; }
@@ -110,69 +153,6 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        public TaskModel NewTask
-        {
-            get { return _newTask; }
-            set
-            {
-                _newTask = value;
-                RaisePropertyChanged(nameof(NewTask));
-            }
-        }
-        public ObservableCollection<Category> Categories
-        {
-            get { return _taskCategories; }
-            set
-            {
-                _taskCategories = value;
-                RaisePropertyChanged(nameof(Categories));
-            }
-        }
-
-        private Category _taskCategorySelectedItem;
-
-        private DialogService dialogService = new DialogService();
-        private string _newTaskCategory;
-
-        public Category TaskCategorySelectedItem
-        {
-            get { return _taskCategorySelectedItem; }
-
-            set
-            {
-                _taskCategorySelectedItem = value;
-
-                RaisePropertyChanged(nameof(TaskCategorySelectedItem));
-            }
-        }
-
-        public string NewTaskCategory
-        {
-
-            get { return _newTaskCategory; }
-
-            set
-            {
-                //if (value != null)
-                //{
-                //    _newTaskCategory = value;
-                //    RaisePropertyChanged(nameof(NewTaskCategory));                    
-
-                //    var newCategory = new TaskCategory
-                //    {
-                //        Id = Guid.NewGuid(),
-                //        CategoryName = value
-                //    };
-                    
-                //    _taskCategoryService.Add(newCategory);
-
-                //    TaskCategories.Add(newCategory);
-
-                //    TaskCategorySelectedItem = newCategory;
-                //}
-            }
-        }
-
         public IEnumerable<TaskStatus> TaskStatuses
         {
             get
@@ -188,18 +168,15 @@ namespace TasksManager.Application.ViewModel
                 return Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>();
             }
         }
-
-        public RelayCommand ClearTextCommand { get; private set; }
-
         public TaskOverviewViewModel()
         {
             _taskDataService = new TaskDataService();
-            _CategoryService = new CategoryService();
+            _categoryService = new CategoryService();
 
             LoadData();
             LoadCommands();
 
-            Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
+            Messenger.Default.Register<Category>(this, OnCategoryReceived);
         }
 
         private void LoadCommands()
@@ -212,22 +189,21 @@ namespace TasksManager.Application.ViewModel
             CancelCommand = new RelayCommand(Cancel, CanCancel);
             AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
         }
-        private void OnUpdateListMessageReceived(UpdateListMessage obj)
+
+        private void OnCategoryReceived(Category obj)
         {
-            LoadData();
-            dialogService.CloseDialog();
+            NewCategory = obj;
+            _dialogService.CloseDialog();
+            Categories.Add(NewCategory);
+        }
+        private bool CanAddCategory(object obj)
+        {
+            return true;
         }
 
         private void AddCategory(object obj)
         {
-            Messenger.Default.Send<Category>(Categories);
-
-            dialogService.ShowDialog();
-        }
-
-        private bool CanAddCategory(object obj)
-        {
-            return true;
+            _dialogService.ShowDialog();
         }
 
         private bool CanCancel(object obj)
@@ -288,7 +264,8 @@ namespace TasksManager.Application.ViewModel
 
         private void EditTask(object obj)
         {
-            SelectedTask = obj as TaskModel; ;
+            SelectedTask = obj as TaskModel;
+            SelectedCategory = _categoryService.GetById(SelectedTask.CategoryId);
 
             foreach (var task in Tasks)
             {
@@ -299,6 +276,7 @@ namespace TasksManager.Application.ViewModel
             }
             SelectedTask.IsModify = true;
         }
+
         private bool CanEditTask(object obj)
         {
             return true;
@@ -310,17 +288,17 @@ namespace TasksManager.Application.ViewModel
 
             if (task.IsNew == true)
             {
-                task.CategoryId = TaskCategorySelectedItem.Id;
-                task.Category = TaskCategorySelectedItem;
+                task.CategoryId = SelectedCategory.Id;
+                task.Category = SelectedCategory;
                 _taskDataService.Add(task); 
                 task.IsNew = false;
                 NewTask = null;
             }
             else
             {
-                task.Category = TaskCategorySelectedItem;
+                task.Category = SelectedCategory;
+                task.CategoryId = SelectedCategory.Id;
                 _taskDataService.Update(task);
-                _CategoryService.Update(task.Category);
                 task.IsModify = false;
             }
 
@@ -368,8 +346,7 @@ namespace TasksManager.Application.ViewModel
             TasksToDo = new ObservableCollection<TaskModel>(_taskDataService.GetAllToDo());            
             Tasks = TasksToDo;
 
-            Categories = new ObservableCollection<Category>(_CategoryService.GetAll());
-
+            Categories = new ObservableCollection<Category>(_categoryService.GetAll());
         }
     }
 }

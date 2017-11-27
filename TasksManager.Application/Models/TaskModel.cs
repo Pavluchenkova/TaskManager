@@ -15,7 +15,7 @@ namespace TasksManager.Application.Models
         private Category _category;
         private TaskPriority _priority;
         private DateTime? _finishDate;
-        private Guid? _taskCategoryId;
+        private Guid? _categoryId;
 
         public TaskModel()
         {
@@ -66,10 +66,10 @@ namespace TasksManager.Application.Models
         }
         public Guid? CategoryId
         {
-            get { return _taskCategoryId; }
+            get { return _categoryId; }
             set
             {
-                SetValue(ref _taskCategoryId, value);
+                SetValue(ref _categoryId, value);
             }
         }
 

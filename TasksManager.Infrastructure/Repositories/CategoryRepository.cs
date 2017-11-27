@@ -24,7 +24,7 @@ namespace TasksManager.Infrastructure.Repositories
             DbContext.SaveChanges();
         }
 
-        public Category GetById(Guid id)
+        public Category GetById(Guid? id)
         {
             return DbContext.TaskCategories.FirstOrDefault(e => e.Id == id);
         }

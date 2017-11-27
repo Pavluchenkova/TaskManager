@@ -28,5 +28,10 @@ namespace TasksManager.Application.Services
         {
             repository.Delete(category.Id);
         }
+
+        internal Category GetById(Guid? categoryId)
+        {
+           return repository.GetById(categoryId);
+        }
     }
 }
