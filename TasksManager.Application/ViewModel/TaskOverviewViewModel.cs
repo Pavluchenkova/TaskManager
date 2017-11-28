@@ -287,6 +287,7 @@ namespace TasksManager.Application.ViewModel
             TaskModel task = obj as TaskModel;
 
             if (task.IsNew == true)
+
             {
                 task.CategoryId = SelectedCategory.Id;
                 task.Category = SelectedCategory;

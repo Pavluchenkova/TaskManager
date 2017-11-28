@@ -20,7 +20,6 @@
         BorderThickness="0"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="ThreeDBorderWindow"        
-        WindowStartupLocation="CenterScreen"
         Title="Task Manager"
         DataContext="{Binding Source={StaticResource mainViewModelLocator}, Path=TaskOverviewViewModel}">
 
