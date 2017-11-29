@@ -23,7 +23,6 @@
         Title="Task Manager"
         DataContext="{Binding Source={StaticResource mainViewModelLocator}, Path=TaskOverviewViewModel}">
 
-
     <DockPanel>
         <materialDesign:ColorZone Padding="16"
                                   Margin="0"
@@ -37,18 +36,26 @@
                           Margin="0 5 0 5" />
             </DockPanel>
         </materialDesign:ColorZone>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
                 <RowDefinition />
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
+            <Button Grid.Row ="0" Style="{StaticResource MaterialDesignFlatButton}"   
+                        Margin="0,6,5,0"                        
+                        HorizontalAlignment="Right" 
+                        ToolTip="Add category"
+                        Command="{Binding AddCategoryCommand}" 
+                        Content="+ Category" VerticalAlignment="Top" >
+            </Button>
             <ListView x:Name="taskList"
                       Grid.Column="0"
-                      Grid.Row="0"                                       
+                      Grid.Row="1"                                       
                       HorizontalContentAlignment="Stretch"                      
                       ItemsSource="{Binding Tasks}"                      
                       SelectedItem="{Binding SelectedTask}"
@@ -78,15 +85,8 @@
                 </ItemsControl.ItemTemplate>
             </ListView>
             <DockPanel x:Name="addTaskPanel"
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="0">
-                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
-                        Margin="5"                        
-                        HorizontalAlignment="Right" 
-                        ToolTip="Add category"
-                        Command="{Binding AddCategoryCommand}" >
-                    <materialDesign:PackIcon Kind="Cat"  Height="24" Width="24" />
-                </Button>
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
                         Margin="5"                        
                         HorizontalAlignment="Right" 

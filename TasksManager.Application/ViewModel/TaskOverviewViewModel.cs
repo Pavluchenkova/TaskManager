@@ -289,8 +289,11 @@ namespace TasksManager.Application.ViewModel
             if (task.IsNew == true)
 
             {
-                task.CategoryId = SelectedCategory.Id;
-                task.Category = SelectedCategory;
+                if (SelectedCategory != null)
+                {
+                    task.CategoryId = SelectedCategory.Id;
+                    task.Category = SelectedCategory;
+                }
                 _taskDataService.Add(task); 
                 task.IsNew = false;
                 NewTask = null;

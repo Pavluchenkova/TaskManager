@@ -218,8 +218,8 @@
                 <Setter Property="Visibility" Value="Hidden"/>
             </DataTrigger>
         </Style.Triggers>
-    </Style>
-   
+    </Style>    
+
     <ControlTemplate x:Key="validationFailed">
 
     </ControlTemplate>
