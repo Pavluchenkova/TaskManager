@@ -78,6 +78,7 @@
     <Compile Include="DragDrop\DragDropHelper.cs" />
     <Compile Include="DragDrop\DraggedAdorner.cs" />
     <Compile Include="DragDrop\InsertionAdorner.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\CategoryService.cs" />
@@ -101,9 +102,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,10 +111,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TaskOverviewView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

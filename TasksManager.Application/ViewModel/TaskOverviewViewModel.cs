@@ -25,9 +25,9 @@ namespace TasksManager.Application.ViewModel
         private ObservableCollection<TaskModel> _tasksInProgress;
         private ObservableCollection<TaskModel> _tasksDone;
         private ObservableCollection<TaskModel> _tasksToDo;
-        private ObservableCollection<Category> _categories;
-        private Category _selectedCategory;
-        private Category _newCategory;
+        private ObservableCollection<CategoryModel> _categories;
+        private CategoryModel _selectedCategory;
+        private CategoryModel _newCategory;
 
         public ICommand DetailCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
@@ -81,7 +81,7 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(TasksToDo));
             }
         }
-        public ObservableCollection<Category> Categories
+        public ObservableCollection<CategoryModel> Categories
         {
             get { return _categories; }
             set
@@ -108,7 +108,7 @@ namespace TasksManager.Application.ViewModel
                 RaisePropertyChanged(nameof(NewTask));
             }
         }
-        public Category SelectedCategory
+        public CategoryModel SelectedCategory
         {
             get { return _selectedCategory; }
 
@@ -120,7 +120,7 @@ namespace TasksManager.Application.ViewModel
             }
         }
         
-        public Category NewCategory
+        public CategoryModel NewCategory
         {
             get { return _newCategory; }
 
@@ -176,7 +176,7 @@ namespace TasksManager.Application.ViewModel
             LoadData();
             LoadCommands();
 
-            Messenger.Default.Register<Category>(this, OnCategoryReceived);
+            Messenger.Default.Register<CategoryModel>(this, OnCategoryReceived);
         }
 
         private void LoadCommands()
@@ -190,7 +190,7 @@ namespace TasksManager.Application.ViewModel
             AddCategoryCommand = new RelayCommand(AddCategory, CanAddCategory);
         }
 
-        private void OnCategoryReceived(Category obj)
+        private void OnCategoryReceived(CategoryModel obj)
         {
             NewCategory = obj;
             _dialogService.CloseDialog();
@@ -291,7 +291,7 @@ namespace TasksManager.Application.ViewModel
             {
                 if (SelectedCategory != null)
                 {
-                    task.CategoryId = SelectedCategory.Id;
+                    task.CategoryId = SelectedCategory.CategoryId;
                     task.Category = SelectedCategory;
                 }
                 _taskDataService.Add(task); 
@@ -301,7 +301,7 @@ namespace TasksManager.Application.ViewModel
             else
             {
                 task.Category = SelectedCategory;
-                task.CategoryId = SelectedCategory.Id;
+                task.CategoryId = SelectedCategory.CategoryId;
                 _taskDataService.Update(task);
                 task.IsModify = false;
             }
@@ -350,7 +350,7 @@ namespace TasksManager.Application.ViewModel
             TasksToDo = new ObservableCollection<TaskModel>(_taskDataService.GetAllToDo());            
             Tasks = TasksToDo;
 
-            Categories = new ObservableCollection<Category>(_categoryService.GetAll());
+            Categories = new ObservableCollection<CategoryModel>(_categoryService.GetAll());
         }
     }
 }

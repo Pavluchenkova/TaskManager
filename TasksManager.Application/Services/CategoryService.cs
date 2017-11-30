@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TasksManager.Application.Models;
+using TasksManager.Application.Utility;
 using TasksManager.Infrastructure.Repositories;
 using TasksManager.Model.Entities;
 
@@ -11,27 +10,23 @@ namespace TasksManager.Application.Services
     public class CategoryService
     {
         CategoryRepository repository = new CategoryRepository();
-        public IEnumerable<Category> GetAll()
+        Converter convertor = new Converter();
+
+        public IEnumerable<CategoryModel> GetAll()
         {
-            return repository.GetAll(); 
+            var categories = repository.GetAll();
+            return convertor.ConvertToCategoryModel(categories);
         }
-        internal void Add(Category category)
+        internal void Add(CategoryModel categoryModel)
         {
+            var category = convertor.ConvertToCategory(categoryModel);
             repository.Add(category);
         }
-
-        internal void Update(Category category)
+        
+        internal CategoryModel GetById(Guid? categoryId)
         {
-            repository.GetById(category.Id);
-        }
-        public void Delete(Category category)
-        {
-            repository.Delete(category.Id);
-        }
-
-        internal Category GetById(Guid? categoryId)
-        {
-           return repository.GetById(categoryId);
+           var category = repository.GetById(categoryId);
+            return convertor.ConvertToCategoryModel(category);
         }
     }
 }

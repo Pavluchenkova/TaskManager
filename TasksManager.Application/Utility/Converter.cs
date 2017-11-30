@@ -44,6 +44,29 @@ namespace TasksManager.Application.Utility
             
             return task;
         }
-    }
+        public CategoryModel ConvertToCategoryModel(Category entity)
+        {
+            CategoryModel categoryModel = new CategoryModel();
+
+            categoryModel.CategoryId = entity.Id;
+            categoryModel.Name = entity.Name;
+
+            return categoryModel;
+        }
+        public Category ConvertToCategory(CategoryModel categoryModel)
+        {
+            var category = new Category();
+
+            category.Id = categoryModel.CategoryId;
+            category.Name = categoryModel.Name;
+
+            return category;
+        }
+        public IEnumerable<CategoryModel> ConvertToCategoryModel(IEnumerable<Category> categories)
+        {
+            var categoryModel = categories.Select(e => ConvertToCategoryModel(e));
+            return categoryModel;
+        }
+     }
 }
 

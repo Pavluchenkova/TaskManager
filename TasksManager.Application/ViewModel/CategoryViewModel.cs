@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using TasksManager.Application.Models;
 using TasksManager.Application.Services;
 using TasksManager.Application.Utility;
 using TasksManager.Model.Entities;
@@ -12,7 +13,7 @@ namespace TasksManager.Application.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private DialogService _dialogService = new DialogService();
         private CategoryService _categoryService = new CategoryService();
-        private Category _newCategory;
+        private CategoryModel _newCategory;
         public ICommand SaveNewCategoryCommand { get; set; }
         private ICommand CancelCommand { get; set; }
 
@@ -21,7 +22,7 @@ namespace TasksManager.Application.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Category NewCategory
+        public CategoryModel NewCategory
         {
             get { return _newCategory; }
             set
@@ -33,8 +34,7 @@ namespace TasksManager.Application.ViewModel
 
         public CategoryViewModel()
         {
-            _newCategory = new Category();
-            NewCategory.Id = Guid.NewGuid();
+            _newCategory = new CategoryModel();
 
             SaveNewCategoryCommand = new RelayCommand(SaveCategory, CanSaveCategory);
         }
@@ -46,12 +46,11 @@ namespace TasksManager.Application.ViewModel
         
         private void SaveCategory(object obj)
         {            
-            Category category = obj as Category;            
+            CategoryModel category = obj as CategoryModel;            
             _categoryService.Add(category);
-            Messenger.Default.Send<Category>(category);
+            Messenger.Default.Send<CategoryModel>(category);
 
-            _newCategory = new Category();
-            NewCategory.Id = Guid.NewGuid();
+            _newCategory = new CategoryModel();
         }
     }
 }

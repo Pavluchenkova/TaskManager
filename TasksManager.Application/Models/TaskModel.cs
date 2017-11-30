@@ -12,7 +12,7 @@ namespace TasksManager.Application.Models
         private bool _isNew;
         private bool _isModify;
         private TaskStatus _status;
-        private Category _category;
+        private CategoryModel _category;
         private TaskPriority _priority;
         private DateTime? _finishDate;
         private Guid? _categoryId;
@@ -56,7 +56,7 @@ namespace TasksManager.Application.Models
             }
         }
 
-        public Category Category
+        public CategoryModel Category
         {
             get { return _category; }
             set
