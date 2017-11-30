@@ -55,12 +55,14 @@
             </Button>
             <ListView x:Name="taskList"
                       Grid.Column="0"
-                      Grid.Row="1"                                       
+                      Grid.Row="1"                       
                       HorizontalContentAlignment="Stretch"                      
                       ItemsSource="{Binding Tasks}"                      
                       SelectedItem="{Binding SelectedTask}"
                       DragDrop:DragDropHelper.IsDropTarget="True"
                       DragDrop:DragDropHelper.IsDragSource="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                      Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
                       DragDrop:DragDropHelper.DragDropTemplate="{StaticResource DragTemplate}"
                       
                       ItemContainerStyle="{StaticResource ListViewItemStyle}">

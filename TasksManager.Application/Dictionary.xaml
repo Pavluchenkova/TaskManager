@@ -231,8 +231,8 @@
             <DockPanel HorizontalAlignment="Stretch">
 
                 <materialDesign:PackIcon Kind="flag" Foreground="{Binding Priority, Converter={StaticResource converter}}" Height="20" Width="20" VerticalAlignment="Center"/>
-                <Label HorizontalAlignment="Left" Content="{Binding Title}" FontWeight="Bold" FontSize="16"></Label>
-                
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Title}" FontWeight="Bold" FontSize="16" TextTrimming="CharacterEllipsis" Width="130"></TextBlock>
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding FinishDate, StringFormat=d}" FontSize="16"></TextBlock>
                     <Button HorizontalAlignment="Right" Style="{StaticResource DoneButton}" ToolTip="Done" Command="{Binding MakeDoneCommand}"
@@ -271,6 +271,9 @@
                           Margin="0 5 0 5" 
                           materialDesign:HintAssist.Hint="Title" 
                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                          Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                          AcceptsReturn="True"
+                          TextWrapping="Wrap"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
                           Validation.ErrorTemplate="{StaticResource validationFailed}">
                 <TextBox.Text>
