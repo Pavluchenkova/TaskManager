@@ -17,7 +17,7 @@ namespace TasksManager.Application.ViewModel
 
         private TaskModel _newTask;
         private TaskModel _selectedTask;
-        private TaskStatus _filterName;
+        private TaskStatusModel _filterName;
         private TaskDataService _taskDataService;
         private CategoryService _categoryService;
         private DialogService _dialogService = new DialogService();
@@ -131,20 +131,20 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        public TaskStatus FilterName
+        public TaskStatusModel FilterName
         {
             get { return _filterName; }
             set
             {
                 switch (value)
                 {
-                    case TaskStatus.ToDo:
+                    case TaskStatusModel.ToDo:
                         Tasks = TasksToDo;
                         break;
-                    case TaskStatus.InProgress:
+                    case TaskStatusModel.InProgress:
                         Tasks = TasksInProgress;
                         break;
-                    case TaskStatus.Done:
+                    case TaskStatusModel.Done:
                         Tasks = TasksDone;
                         break;
                 }
@@ -264,8 +264,8 @@ namespace TasksManager.Application.ViewModel
 
         private void EditTask(object obj)
         {
-            SelectedTask = obj as TaskModel;
-            SelectedCategory = _categoryService.GetById(SelectedTask.CategoryId);
+            SelectedTask = obj as TaskModel;          
+            SelectedCategory = Categories.FirstOrDefault(c=>c.CategoryId==SelectedTask.CategoryId);
 
             foreach (var task in Tasks)
             {

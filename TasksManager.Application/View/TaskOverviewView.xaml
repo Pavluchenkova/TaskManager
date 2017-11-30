@@ -38,9 +38,6 @@
         </materialDesign:ColorZone>
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition />
@@ -53,8 +50,7 @@
                         Command="{Binding AddCategoryCommand}" 
                         Content="+ Category" VerticalAlignment="Top" >
             </Button>
-            <ListView x:Name="taskList"
-                      Grid.Column="0"
+            <ListView x:Name="taskList"                      
                       Grid.Row="1"                       
                       HorizontalContentAlignment="Stretch"                      
                       ItemsSource="{Binding Tasks}"                      
@@ -63,8 +59,7 @@
                       DragDrop:DragDropHelper.IsDragSource="True"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
-                      DragDrop:DragDropHelper.DragDropTemplate="{StaticResource DragTemplate}"
-                      
+                      DragDrop:DragDropHelper.DragDropTemplate="{StaticResource DragTemplate}"                      
                       ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -86,9 +81,9 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListView>
-            <DockPanel x:Name="addTaskPanel"
-                Grid.Row="2"
-                Grid.Column="0">
+            <DockPanel 
+                x:Name="addTaskPanel"
+                Grid.Row="2">
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
                         Margin="5"                        
                         HorizontalAlignment="Right" 

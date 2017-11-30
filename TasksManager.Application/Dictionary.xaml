@@ -226,6 +226,18 @@
 
     <Extenders:PriorityConverter x:Key="converter" />
     
+    <Style x:Key="AddCategoryButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Visibility" Value="Hidden"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding SelectedTask.IsNew}"  Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SelectedTask.IsModify}"  Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <DataTemplate x:Key="TaskDataTemplate">
         <Border BorderThickness="0">
             <DockPanel HorizontalAlignment="Stretch">
@@ -267,15 +279,15 @@
             </Grid.RowDefinitions>
 
             <TextBox  Grid.Row="0" Grid.Column = "1"                         
-                          Name="TitleTextBox"
-                          Margin="0 5 0 5" 
-                          materialDesign:HintAssist.Hint="Title" 
-                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                          Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
-                          AcceptsReturn="True"
-                          TextWrapping="Wrap"
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
-                          Validation.ErrorTemplate="{StaticResource validationFailed}">
+                      Name="TitleTextBox"
+                      Margin="0 5 0 5" 
+                      materialDesign:HintAssist.Hint="Title" 
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                      Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                      AcceptsReturn="True"
+                      TextWrapping="Wrap"
+                      DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                      Validation.ErrorTemplate="{StaticResource validationFailed}">
                 <TextBox.Text>
                     <Binding Path="NewTask.Title"
                                  UpdateSourceTrigger="PropertyChanged"
@@ -340,15 +352,18 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBox  Grid.Row="0" Grid.ColumnSpan ="3"
-                          Name="TitleTextBox"
-                          FontSize="16"
-                          FontWeight="Bold"
-                          TextAlignment="Left"
-                          Margin="0 5 0 5" 
-                          Style ="{StaticResource ErrorToolTip}"
-                          DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" 
-                          Validation.ErrorTemplate="{StaticResource validationFailed}">
+            <TextBox  Grid.Row="0" Grid.ColumnSpan ="3"                         
+                      Name="TitleTextBox"                      
+                      FontSize="16"
+                      FontWeight="Bold"
+                      TextAlignment="Left"
+                      Margin="0 5 0 5" 
+                      Style ="{StaticResource ErrorToolTip}"                                            
+                      Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                      AcceptsReturn="True"
+                      TextWrapping="Wrap"
+                      DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                      Validation.ErrorTemplate="{StaticResource validationFailed}">
                 <TextBox.Text>
                     <Binding Path="SelectedTask.Title"
                                  UpdateSourceTrigger="PropertyChanged"
@@ -367,7 +382,7 @@
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
 
             <ComboBox Grid.Row="3" materialDesign:HintAssist.Hint="Category" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                          ItemsSource="{Binding Categories, Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory}"                      
+                          ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory}"                      
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" Margin="0 5 0 5" />
             
 

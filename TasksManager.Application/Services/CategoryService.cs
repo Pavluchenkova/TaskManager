@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TasksManager.Application.Models;
 using TasksManager.Application.Utility;
 using TasksManager.Infrastructure.Repositories;
-using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Services
 {
@@ -26,7 +25,7 @@ namespace TasksManager.Application.Services
         internal CategoryModel GetById(Guid? categoryId)
         {
            var category = repository.GetById(categoryId);
-            return convertor.ConvertToCategoryModel(category);
+           return convertor.ConvertToCategoryModel(category);
         }
     }
 }

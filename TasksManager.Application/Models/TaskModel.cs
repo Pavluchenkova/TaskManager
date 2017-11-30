@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Models
 {
