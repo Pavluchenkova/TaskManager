@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using TasksManager.Application.Models;
 using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Utility
@@ -15,11 +16,11 @@ namespace TasksManager.Application.Utility
         {
             switch (value)
             {
-                case TaskPriority.High:
+                case TaskPriorityModel.High:
                     return "#E04343";
-                case TaskPriority.Medium:
+                case TaskPriorityModel.Medium:
                     return "#009688";
-                case TaskPriority.Low:
+                case TaskPriorityModel.Low:
                     return "#7bc6bf"; 
             }
             return false;

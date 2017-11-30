@@ -11,9 +11,9 @@ namespace TasksManager.Application.Models
         private string _description;
         private bool _isNew;
         private bool _isModify;
-        private TaskStatus _status;
+        private TaskStatusModel _status;
         private CategoryModel _category;
-        private TaskPriority _priority;
+        private TaskPriorityModel _priority;
         private DateTime? _finishDate;
         private Guid? _categoryId;
 
@@ -73,7 +73,7 @@ namespace TasksManager.Application.Models
             }
         }
 
-        public TaskStatus Status
+        public TaskStatusModel Status
         {
             get { return _status; }
 
@@ -83,7 +83,7 @@ namespace TasksManager.Application.Models
             }
         }
 
-        public TaskPriority Priority
+        public TaskPriorityModel Priority
         {
             get { return _priority; }
             set

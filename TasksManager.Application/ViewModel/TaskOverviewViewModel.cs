@@ -153,19 +153,19 @@ namespace TasksManager.Application.ViewModel
             }
         }
 
-        public IEnumerable<TaskStatus> TaskStatuses
+        public IEnumerable<TaskStatusModel> TaskStatuses
         {
             get
             {
-                return Enum.GetValues(typeof(TaskStatus)).Cast<TaskStatus>();
+                return Enum.GetValues(typeof(TaskStatusModel)).Cast<TaskStatusModel>();
             }
         }
 
-        public IEnumerable<TaskPriority> TaskPriorities
+        public IEnumerable<TaskPriorityModel> TaskPriorities
         {
             get
             {
-                return Enum.GetValues(typeof(TaskPriority)).Cast<TaskPriority>();
+                return Enum.GetValues(typeof(TaskPriorityModel)).Cast<TaskPriorityModel>();
             }
         }
         public TaskOverviewViewModel()
@@ -236,7 +236,7 @@ namespace TasksManager.Application.ViewModel
         private void MakeDone(object obj)
         {
             var task = obj as TaskModel;
-            task.Status = TaskStatus.Done;
+            task.Status = TaskStatusModel.Done;
             task.FinishDate = DateTime.Now;
             _taskDataService.Update(task);
 
@@ -309,11 +309,11 @@ namespace TasksManager.Application.ViewModel
             var ind = Tasks.IndexOf(task);
 
             Tasks.RemoveAt(ind);
-            if (task.Status == TaskStatus.ToDo)
+            if (task.Status == TaskStatusModel.ToDo)
             {
                 TasksToDo.Insert(0, task);
             }
-            else if (task.Status == TaskStatus.InProgress)
+            else if (task.Status == TaskStatusModel.InProgress)
             {
                 TasksInProgress.Insert(0, task);
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using TasksManager.Application.Models;
 using TasksManager.Application.Utility;
 using TasksManager.Infrastructure.Repositories;
+using TasksManager.Model.Entities;
 
 namespace TasksManager.Application.Services
 {
@@ -63,8 +64,8 @@ namespace TasksManager.Application.Services
             var taskToUpdate = repository.GetById(task.TaskId);
 
             taskToUpdate.Title = task.Title;
-            taskToUpdate.Status = task.Status;
-            taskToUpdate.Priority = task.Priority;
+            taskToUpdate.Status = (TaskStatus)(int)task.Status;
+            taskToUpdate.Priority = (TaskPriority)(int)task.Priority;
             taskToUpdate.CategoryId = task.CategoryId;
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;

@@ -80,6 +80,8 @@
     <Compile Include="DragDrop\InsertionAdorner.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\TaskPriorityModel.cs" />
+    <Compile Include="Models\TaskStatusModel.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Utility\Converter.cs" />

@@ -13,8 +13,8 @@ namespace TasksManager.Application.Utility
 
             taskModel.TaskId = entity.Id;
             taskModel.Title = entity.Title;
-            taskModel.Status = entity.Status;
-            taskModel.Priority = entity.Priority;
+            taskModel.Status = (TaskStatusModel)(int)entity.Status;
+            taskModel.Priority = (TaskPriorityModel)(int)entity.Priority;
             taskModel.CreationDate = entity.CreationDate;
             taskModel.FinishDate = entity.FinishDate;
             taskModel.Description = entity.Description;
@@ -35,8 +35,8 @@ namespace TasksManager.Application.Utility
 
             task.Id = taskModel.TaskId;
             task.Title = taskModel.Title;
-            task.Status = taskModel.Status;
-            task.Priority = taskModel.Priority;
+            task.Status = (TaskStatus)(int)taskModel.Status;
+            task.Priority = (TaskPriority)(int)taskModel.Priority;
             task.CreationDate = taskModel.CreationDate;
             taskModel.FinishDate = taskModel.FinishDate;
             task.Description = taskModel.Description;
@@ -67,6 +67,6 @@ namespace TasksManager.Application.Utility
             var categoryModel = categories.Select(e => ConvertToCategoryModel(e));
             return categoryModel;
         }
-     }
+    }
 }
 
