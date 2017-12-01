@@ -39,19 +39,11 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45"/>
                 <RowDefinition />
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row ="0" Style="{StaticResource MaterialDesignFlatButton}"   
-                        Margin="0,6,5,0"                        
-                        HorizontalAlignment="Right" 
-                        ToolTip="Add category"
-                        Command="{Binding AddCategoryCommand}" 
-                        Content="+ Category" VerticalAlignment="Top" >
-            </Button>
             <ListView x:Name="taskList"                      
-                      Grid.Row="1"                       
+                      Grid.Row="0"                       
                       HorizontalContentAlignment="Stretch"                      
                       ItemsSource="{Binding Tasks}"                      
                       SelectedItem="{Binding SelectedTask}"
@@ -83,7 +75,7 @@
             </ListView>
             <DockPanel 
                 x:Name="addTaskPanel"
-                Grid.Row="2">
+                Grid.Row="1">
                 <Button Style="{StaticResource MaterialDesignFloatingActionButton}"   
                         Margin="5"                        
                         HorizontalAlignment="Right" 
