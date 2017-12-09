@@ -15,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Height="600" Width="400"       
+        Height="600" Width="450"       
         MinHeight="400" MinWidth="400"
         BorderThickness="0"
         ResizeMode="CanResizeWithGrip"

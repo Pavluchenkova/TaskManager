@@ -69,6 +69,7 @@ namespace TasksManager.Application.Services
             taskToUpdate.CategoryId = task.CategoryId;
             taskToUpdate.CreationDate = task.CreationDate;
             taskToUpdate.Description = task.Description;
+            taskToUpdate.FinishDate = task.FinishDate;
 
             repository.Update(taskToUpdate);
         }
