@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201711212241012_AddCategories.Designer.cs">
       <DependentUpon>201711212241012_AddCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712151416344_AddDefaultCategories.cs" />
+    <Compile Include="Migrations\201712151416344_AddDefaultCategories.Designer.cs">
+      <DependentUpon>201712151416344_AddDefaultCategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711212241012_AddCategories.resx">
       <DependentUpon>201711212241012_AddCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712151416344_AddDefaultCategories.resx">
+      <DependentUpon>201712151416344_AddDefaultCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
