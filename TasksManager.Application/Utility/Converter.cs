@@ -38,7 +38,7 @@ namespace TasksManager.Application.Utility
             task.Status = (TaskStatus)(int)taskModel.Status;
             task.Priority = (TaskPriority)(int)taskModel.Priority;
             task.CreationDate = taskModel.CreationDate;
-            taskModel.FinishDate = taskModel.FinishDate;
+            task.FinishDate = taskModel.FinishDate;
             task.Description = taskModel.Description;
             task.CategoryId = taskModel.CategoryId;
             

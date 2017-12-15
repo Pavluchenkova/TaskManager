@@ -7,7 +7,7 @@ using TasksManager.Application.Models;
 using System.Windows.Input;
 using TasksManager.Application.Services;
 using TasksManager.Application.Utility;
-using TasksManager.Model.Entities;
+
 
 namespace TasksManager.Application.ViewModel
 {
