@@ -305,10 +305,6 @@ namespace TasksManager.Application.ViewModel
                     task.Category = SelectedCategory;
                     task.CategoryId = SelectedCategory.CategoryId;
                 }
-                if(task.Status != TaskStatusModel.Done)
-                {
-                    task.FinishDate = null;
-                }
                 _taskDataService.Update(task);
                 task.IsModify = false;
             }

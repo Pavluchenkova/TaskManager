@@ -382,7 +382,7 @@
                       TextAlignment="Left"
                       Margin="0 0 0 5" 
                       Style ="{StaticResource ErrorToolTip}"                                            
-                      Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
+                      Width="Auto"
                       AcceptsReturn="True"
                       TextWrapping="Wrap"
                       DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
@@ -410,11 +410,11 @@
             
             <DatePicker Grid.Row="5" Width="Auto" HorizontalAlignment="Stretch" Margin="0 20 0 5" materialDesign:HintAssist.Hint="Finish Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                         DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" 
-                        SelectedDate="{Binding NewTask.FinishDate}" />
+                        SelectedDate="{Binding SelectedTask.FinishDate}" />
 
             <TextBox  Grid.Row="6" Text="{Binding SelectedTask.Description, Mode=TwoWay}" materialDesign:HintAssist.Hint="Notes" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                           DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"
-                          Width="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}" AcceptsReturn="True" TextWrapping="Wrap" Margin="0 5 0 0"></TextBox>
+                          Width="Auto" AcceptsReturn="True" TextWrapping="Wrap" Margin="0 5 0 0"></TextBox>
 
             <DockPanel Grid.Row="7" HorizontalAlignment="Right" >               
                 <Button 
