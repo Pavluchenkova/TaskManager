@@ -21,7 +21,7 @@ namespace TasksManager.Infrastructure.DAL
             AddForeignKey("dbo.Tasks", "CategoryId", "dbo.Categories", "Id");
             DropColumn("dbo.Tasks", "Category");
 
-            Sql($"INSERT INTO dbo.Categories VALUES ('{Guid.NewGuid()}','Personal')");
+            Sql($"INSERT INTO Categories VALUES ('{Guid.NewGuid()}','Personal')");
         }
         
         public override void Down()

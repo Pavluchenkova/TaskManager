@@ -7,8 +7,8 @@ namespace TasksManager.Infrastructure.DAL
     {
         public override void Up()
         {
-            Sql($"INSERT INTO dbo.Categories VALUES ('{Guid.NewGuid()}','Work')");
-            Sql($"INSERT INTO dbo.Categories VALUES ('{Guid.NewGuid()}','Study')");
+            Sql($"INSERT INTO Categories VALUES ('{Guid.NewGuid()}','Work')");
+            Sql($"INSERT INTO Categories VALUES ('{Guid.NewGuid()}','Study')");
         }
         
         public override void Down()
